@@ -15,14 +15,14 @@ inurl - looks for keywordd provided in the url of the website
 allintitle - results show pages with all the words in the title of the page
 intitle - results show pages with the words in the title of the page
 inanchor - anchors the searched keyword to the described keyword
-allinanchor - 
+allinanchor - same as above but for all the keywords described 
 link - tries to fin the link to the homepage of the specified website /  page
 related - displays sites similar to the one provided
 info - operator finds the information about the specified webpage
 location - location of the headquarters of the website or location of the hosting.
 
 
-## intial recon
+## initial recon
 
 #### www.sitereport.netcraft.com #website 
 - tech-stack detection an various other information regarding the website
@@ -38,7 +38,7 @@ location - location of the headquarters of the website or location of the hostin
 
 ## Information gathering from various social networking sites
 tools used 
-#### [[sherlock]] #tool/linux
+#### sherlock #tool/linux
 
 ```bash
 sherlock "<target name>"
@@ -50,9 +50,9 @@ sherlock "<target name>"
 
 ## whois footprinting
 
->gather info about the IP address and domain
+> gather info about the IP address and domain
 
- >whois is a query an response protocol used for querying databases that store the registered users or assignees of an Internet resource such as domain name, an IP address block, or an autonomous system.
+> whois is a query an response protocol used for querying databases that store the registered users or assignees of an Internet resource such as domain name, an IP address block, or an autonomous system.
 
 #### https://whois.domainstools.com #website
 
@@ -67,7 +67,7 @@ DNS is considered the intermediary source of any internet communications.
 primary function include the translation of IP address to domain name and vice versa
 
 tools used
-#### [[nslookup]] #tool/windows  
+#### nslookup #tool/windows  
 
 ```
 nslookup
@@ -77,17 +77,17 @@ nslookup
 ```
 set type=a
 ```
->"a" configures to the query for IP address of the given domain
+> "a" configures to the query for IP address of the given domain
 >after the type has been set, provide the name of the target
 
->this provides a non-authoritative answer
+> this provides a non-authoritative answer
 
 ```
 set type=cname
 ```
->lists cname records for the domain. its done directly against the domains authoritative name server
+> lists cname records for the domain. its done directly against the domains authoritative name server
 
->type the name of the target domain again
+> type the name of the target domain again
 
 > this returns the domain's authoritative name server
 
@@ -95,7 +95,7 @@ now all we need to do is find the IP address of name server
 ```
 set type=a
 ```
->then type name of the name server
+> then type name of the name server
 
 - nslookup website #tool  - (http://www.kloth.net/services/nslookup.php)
 > only need to type the name of the target domain and query type
@@ -105,7 +105,7 @@ set type=a
 accumulating data regarding a specific network environment
 
 tool used 
-#### [[tracert]] #tool/windows 
+#### tracert #tool/windows 
 > shows the hops from the client to the server - their number and ip address
 
 ```
@@ -117,7 +117,7 @@ tracert -h 5 "<target-domain>"
 ```
 > -h = maximum number of hops
 
-#### [[traceroute]] #tool/linux 
+#### traceroute #tool/linux 
 > views the hops made before reaching the destination
 ```bash
 traceroute "<target-domain>"
@@ -130,7 +130,7 @@ traceroute "<target-domain>"
 ## email Footprinting
 
 tool used
-#### [[eMailTrackerPro]] #tool/windows #gui 
+#### eMailTrackerPro #tool/windows #gui 
 
 → My Trace Reports
 
@@ -153,7 +153,7 @@ tool used
 
 ## Footprinting using tools
 
-#### [[Recon-ng]] #tool/linux 
+#### Recon-ng #tool/linux 
 
 ```bash
 recon-ng
@@ -165,7 +165,7 @@ help
 ```
 marketplace install all
 ```
->marketplace is the place or tab where all the modules are located that can be used inside of recon-ng
+> marketplace is the place or tab where all the modules are located that can be used inside of recon-ng
 
 ```
 module search
@@ -177,7 +177,7 @@ we can perform Network discovery, Exploitation, Reconnaissance etc. by loading d
 ```
 workspaces
 ```
->manage different workspaces with this command
+> manage different workspaces with this command
 ```
 workspace create <workspace-name>
 ```
@@ -188,8 +188,8 @@ workspace list
 ```
 db insert domains
 ```
->to set the target domain
->type the name of the target in the next line
+> to set the target domain
+> type the name of the target in the next line
 
 ```
 modules load brute
@@ -203,7 +203,7 @@ modules load recon/domains-hosts/brute_hosts
 ```
 run
 ```
->this will run the loaded module on the domain listed before
+> this will run the loaded module on the domain listed before
 
 ```
 back
