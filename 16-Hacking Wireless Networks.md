@@ -144,6 +144,9 @@ To find the **bssid** given the .cap file
 ```bash
 aircrack-ng <filename>.cap
 ```
+OR
+
+Open wifi_pcap.cap in wireshark > apply display filter: `wlan.bssid` -> to find bssid of access point.
 
 other way to crack the password from a given file
 ```bash
