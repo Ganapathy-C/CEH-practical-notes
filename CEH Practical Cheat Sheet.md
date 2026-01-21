@@ -45,7 +45,10 @@ sudo find /DirectoryName -name SpecificFileName.txt
 ```bash
 sudo find . -name SpecificFileName.txt
 ```
-
+Windowa
+```powershell
+dir /b/s <filename*>
+```
 
 ### Mobile Device
 
