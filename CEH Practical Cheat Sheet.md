@@ -458,3 +458,9 @@ Enumerate users:
 ```bash
 wpscan -url <domain_or_ip> -e u
 ```
+DVWA
+
+login to the dvwa application > set security level low >
+choose command execution type below commands:
+| dir "folder/given" 
+| type "/path/to/filename"
