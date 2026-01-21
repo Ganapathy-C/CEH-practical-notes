@@ -45,7 +45,12 @@ sudo find /DirectoryName -name SpecificFileName.txt
 ```bash
 sudo find . -name SpecificFileName.txt
 ```
-Windowa
+
+```bash
+find / -name <filename> -type f 2>/dev/null
+```
+
+Windows
 ```powershell
 dir /b/s <filename*>
 ```
