@@ -261,6 +261,7 @@ PEiD
 22  → SSH
 23  → Telnet
 3389 → RDP
+9871, 6703 → RAT
 ```
 
 
@@ -373,6 +374,13 @@ remmina
 telnet <IP>
 ```
 
+### Mysql
+```bash
+mysql -u <username> -h <TIP> -p <password>
+```
+> if its running on a custom port use `-P` to specify the port
+
+
 ## Hydra Examples
 
 FTP:
@@ -391,6 +399,32 @@ SSH on custom port:
 
 ```bash
 hydra -L users.txt -P passwords.txt -s 2222 ssh://<TIP> -f
+```
+
+SNMP
+
+```bash
+hydra -P common-snmp-community-strings.txt target.com snmp
+```
+### Hashcat
+```bash
+Hashcat -a 3 -m 900 -o <output-filename.txt> hash.txt /rockyou.txt 
+```
+> -a = attack mode
+> -m = hashtype
+  > 900 md4
+  > 1000 NTLM
+  > 1800 SHA512CRYPT
+  > 110 SHA1 with SALT HASH
+  > 0  MD5
+  > 100 SHA1
+  > 1400 SHA256
+  > 3200 BCRYPT
+  > 160 HMAC-SHA1
+
+### Hash-Identifier
+```bash
+hash-identifier
 ```
 
 ## File retrieval
