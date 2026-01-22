@@ -294,6 +294,36 @@ Download file:
 get <FileName>
 ```
 
+Enumerate with smbmap
+```bash
+smbmap -H <IP>
+```
+
+Possible outputs:
+- Share names
+- Read/Write permissions
+- File listings (sometimes!)
+
+If access denied → try guest
+```bash
+smbmap -H <IP> -u guest -p ""
+```
+
+If you have creds
+```bash
+smbmap -H <IP> -u user -p pass
+```
+
+Download files
+```bash
+smbmap -H <IP> -u user -p pass -r SHARE
+```
+
+Or directly:
+
+```bash
+smbmap -H <IP> -u user -p pass --download "SHARE/path/file.txt"
+```
 
 ## SSH
 
@@ -333,10 +363,15 @@ xfreerdp /v:<TIP> /u:username
 
 GUI:
 
-```text
+```bash
 remmina
 ```
 
+### Telnet
+
+```bash
+telnet <IP>
+```
 
 ## Hydra Examples
 
@@ -358,6 +393,55 @@ SSH on custom port:
 hydra -L users.txt -P passwords.txt -s 2222 ssh://<TIP> -f
 ```
 
+## File retrieval
+
+FTP
+```bash
+get <filename>
+```
+
+RDP
+create a shareable folder
+```bash
+mkdir -p /home/attacker/rdp_share
+```
+give permissions
+```bash
+chmod 755 /home/attacker/rdp_share
+```
+
+drive redirect
+```bash
+xfreerdp /v:<TIP> /u:username /p:password /drive:share,/home/attacker/rdp_share
+```
+copy the file needed in the folder on the remote machine
+it'll be under `Network Locations / Network Drives` 
+under a location called share on <clientname>
+
+SSH
+file
+```bash
+scp user@<TIP>:/path/file.txt newname.txt
+```
+
+folder
+```bash
+scp -r username@<TIP>:/path/to/folder .
+```
+
+If SSH access exists but password auth is blocked. Use key:
+```bash
+scp -i key.pem user@10.10.10.10:/file .
+```
+
+SMB
+file
+smbclient > `get`
+
+folder
+```
+mget
+```
 
 ## Encryption and Steganography
 
