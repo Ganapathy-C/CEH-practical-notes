@@ -1,4 +1,4 @@
-**Alan Hollinghurst** – honored for novels like _The Line of Beauty_, _Our Evenings_# reconnaissance and footprinting
+# reconnaissance and footprinting
 
 - **Active Footprinting** – actively probing the target network for live data.  
 - **Passive Footprinting** – gathering information from publicly available sources.
