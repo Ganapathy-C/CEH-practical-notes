@@ -72,15 +72,15 @@ tool used
 #### [[Wireshark]]
 #tool/windows #gui 
 
-→ open wireshark
+→ open wireshark in  Machine1 that is running moviescoep.com
 → select interface 
 > here ethernet 2
 
-→ go to any http website
+→ go to any http website in Machine2
 > here http://www.moviescope.com/
 
 → login via credentials
-→ switch to wireshark
+→ switch to wireshark on  Machine1
 → stop capturing
 → apply filter `http.request.method==POST`
 → edit → find packet 
@@ -95,7 +95,7 @@ tool used
 
 #### [[Wireshark]] for remote sniffing
 
-→ login to victim pc
+→ login to victim pc windows
 > here Jason/qwerty
 
 → control panel ≫ system and security ≫ windows tools ≫ services
@@ -103,7 +103,7 @@ OR
 → search `services` in the home menu and open
 
 → right click on **Remote Packet Capture Protocol v.0(experimental)** and `start`
-→ back to attacker machine ≫ capture options (from toolbar)
+→ back to attacker machine >> open wireshark in attacking machine ≫ capture options (from toolbar)
 → manage interfaces
 → remote interfaces
 → "+" sign at the bottom
@@ -114,6 +114,9 @@ OR
 
 now we can sniff packets remotely
 
+-> Search www.moviescope.com in victim machine
+-> we can able to see capture traffic on the victim machine from our machine
+
 
 ## Detect Network Sniffing
 
@@ -122,34 +125,38 @@ now we can sniff packets remotely
 
 ARP poisoning = forging many ARP requests and reply packets to overload the switch
 ARP cache poisoning = method of attacking the LAN network by updating the target computers ARP cache 
+In this we are going to perform ARP poisoing , so that we can able to capture the traffic between two machines. We can able to do sniffing.
 
 here we use 
-#### [[Cain and Abel]] 
+#### [[Cain and Abel]]
+#tool/windows #gui 
+
 > to poison the traffic
 
-→ launch `Cain and Abel` 
+→ launch `Cain and Abel` in windows 
 → in configure dialogue = check adaptor and IP address association
-→ `Start/Stop Sniffer`
-→ `Sniffer` tab
+→ click `Start/Stop Sniffer`
+→ Go to `Sniffer` tab
 → "+" icon to scan MAC address
 → check all hosts in my subnet
 → and select all tests
 > it will scan for MAC address and list all those found 
 
-→ `APR` (bottom)
+→ click `APR` (bottom)
 → click on the top half of the pane
 → APR options appear on the left
 → click on the right pane to activate the "+" icon
 → click "+" 
 → New ARP routing
-→ select the targets between which we want to perform ARP poisoning ≫ OK
-→ `Start/Stop APR`
+→ select the two machines on either side as targets between which we want to perform ARP poisoning ≫ OK
+→ click on `Start/Stop APR` (Danger symbol)
 
 simulate traffic between the target machines selected above
 ```bash
 hping3 <target-ip> -c 1000000
 ```
 
+In Attacking machine( Windows), where we are running Cain & Abel, need to do below to capture traffic
 → wireshark 
 → Edit
 → preferences…
