@@ -10,15 +10,15 @@ various types of techniques
 - TCP ping (tcp syn ping , tcp ack ping)
 - IP protocol ping
 
-  nmap -sn -PU 10.10.2.22  - UDP ping
- 	nmap -sn -PS  10.10.2.11 - SYN ping
-	nmap -sn -PA  10.10.2.11 - ACK ping
-	Nmap -sn -PR 10.10.2.11 - ARP ping
-	nmap -sn -PE  10.10.2.11 - Echo ping
-	nmap -sn -PE  10.10.2.11-22 - Echo ping sweep
-	nmap -sn -PP  10.10.2.11 - ICMP timestamp ping
-	nmap -sn -PO  10.10.2.11 - IP protocol Ping
-	nmap -sn -PM  10.10.2.11 - IP address Mask Ping
+- nmap -sn -PU 10.10.2.22  - UDP ping
+- nmap -sn -PS  10.10.2.11 - SYN ping
+- nmap -sn -PA  10.10.2.11 - ACK ping
+- nmap -sn -PR 10.10.2.11 - ARP ping
+- nmap -sn -PE  10.10.2.11 - Echo ping
+- nmap -sn -PE  10.10.2.11-22 - Echo ping sweep
+- nmap -sn -PP  10.10.2.11 - ICMP timestamp ping
+- nmap -sn -PO  10.10.2.11 - IP protocol Ping
+- nmap -sn -PM  10.10.2.11 - IP address Mask Ping
 
 tool used
 #### [[Nmap]]
