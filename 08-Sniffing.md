@@ -46,7 +46,7 @@ macof -i eth0 -d <target-ip>
 
 → open [[wireshark]] in the background to view the flow of packets during the attack
 tool used
-#### [[yersinia]]
+#### [[yersinia / Hyenae]]
 #tool/linux 
 
 > this tool has an interactive shell
