@@ -107,7 +107,7 @@ upload /home/attacker/Downloads/eagle-dos.py
 and then running the python script in the powershell using
 ```
 shell
-python .\eagle-dos.py
+python eagle-dos.py or python .\eagle-dos.py
 ```
 
 ## Detect and Protect 
