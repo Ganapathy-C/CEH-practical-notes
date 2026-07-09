@@ -22,7 +22,8 @@ tool used
 
 used in auditing web applications
 
-In Attacker Windows machine to reset the DNS cache -
+In Attacker Windows machine to reset the DNS cache 
+
 ```
 ipconfig /flushdns
 ```
@@ -46,6 +47,7 @@ we add the proxy to the browser of the victim so that all the traffic flows thro
 → firefox -> settings -> search proxy -> manual proxy -> Ip of machine running caido and port 8080 and checkbox of https and save
 
 Downloading and settingup the CA certificate on victim browser.
+
 ```
 http://10.10.1.11:8080/ca.crt
 ```
@@ -78,6 +80,7 @@ tool used
 → run `hetty.exe` - a command prompt appears and hetty starts
 → launch any browser *here firefox*
 → navigate to open hetty dashboard
+
 ```
 http://localhost:8080
 ```
@@ -109,7 +112,7 @@ tool used
 #### [[Wireshark]]
 #gui #tool/windows 
  
- Open the wireshark on Victim machine with  local ethernet interface to detect the session hijacking
+Open the wireshark on Victim machine with  local ethernet interface to detect the session hijacking
 
 and
 #### [[bettercap]] 
@@ -120,18 +123,25 @@ In attacker machine , we need to run bettercap to simulate the session hijacking
 ```
 bettercap -iface eth0
 ```
+
 To list all the hosts on the subnet
+
 ```
 net probe.on
 ```
+
 To do recon, so that any new host added to the network will be added for sniffing
+
 ```
 net recon.on
 ```
+
 To start sniffing
+
 ```
 net sniff.on
 ```
+
 After all the hosts communicating request first goes to Attacker machine running bettercap and then it will moves to destination.
 
 this will simulate that someone is trying to sniff or trying to attack the network
