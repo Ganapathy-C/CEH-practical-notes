@@ -22,12 +22,12 @@ tool used
 
 used in auditing web applications
 
-to reset the DNS cache -
+In Attacker Windows machine to reset the DNS cache -
 ```
-ipconfig/flushdns
+ipconfig /flushdns
 ```
 
-
+→  Run `caido.exe` or search caido and start
 → create an account with `caido`
 → `start` ≫ `Edit`
 → check `All interfaces` ≫ `start`
@@ -39,12 +39,13 @@ ipconfig/flushdns
 → `Intercept`
 → `Forwarding` and wait until `Queuing`
 
-victim's pov
+In victim's machine Windows or Linux:
 
 we add the proxy to the browser of the victim so that all the traffic flows through attacker pc ( the one containing Caido)
 
-→ firefox
-→ ip of the pc that's running caido 
+→ firefox -> settings -> search proxy -> manual proxy -> Ip of machine running caido and port 8080 and checkbox of https and save
+
+Downloading and settingup the CA certificate on victim browser.
 ```
 http://10.10.1.11:8080/ca.crt
 ```
@@ -67,10 +68,11 @@ in the attacker pc
 here, the victim tried to access `www.moviescope.com` but visited `www.goodshopping.com`
 even the website url will show `www.moviescope.com` but the window displays `www.goodshopping.com`
 
-### Intercept the traffic
+### Intercept Or Logging HTTP the traffic
 
 tool used
 #### [[hetty]]
+#gui #tool/windows 
 #website 
 
 → run `hetty.exe` - a command prompt appears and hetty starts
@@ -92,7 +94,7 @@ now we switch to the target machine
 → open browser and search `http://www.moviescope.com`
 → login using sam/test
 
-in the attacker machine
+In the attacker machine
 → we can see the logs in our hetty proxy logs
 → look for a POST request ( as most logins are POST requests )
 → in the `Body` tab under `POST /` tab we can look into more details of what is happening in the request that is being sent by the victim
@@ -105,25 +107,32 @@ we go to the victim's proxy settings and revert back the original state
 
 tool used
 #### [[Wireshark]]
- to detect the hijacking
+#gui #tool/windows 
+ 
+ Open the wireshark on Victim machine with  local ethernet interface to detect the session hijacking
 
 and
 #### [[bettercap]] 
 #tool/linux 
-to simulate the session hijacking attempt
+
+In attacker machine , we need to run bettercap to simulate the session hijacking attempt
 
 ```
 bettercap -iface eth0
 ```
+To list all the hosts on the subnet
 ```
 net probe.on
 ```
+To do recon, so that any new host added to the network will be added for sniffing
 ```
 net recon.on
 ```
+To start sniffing
 ```
 net sniff.on
 ```
+After all the hosts communicating request first goes to Attacker machine running bettercap and then it will moves to destination.
 
 this will simulate that someone is trying to sniff or trying to attack the network
 but this process sends alot of ARP packets
