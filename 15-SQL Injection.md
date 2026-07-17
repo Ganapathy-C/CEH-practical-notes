@@ -65,8 +65,27 @@ sqlmap -u <target url with paramter> --cookie <cookie> --os-shell
 tool used
 #### [[OWASP ZAP]]
 
-perform the same as we did in [[14-Hacking Web Applications]]
-→ we can see the SQL injection vulnerability in the **Alerts** tab
+
+open OWASP ZAP
+search via menu
+OR
+```bash
+zaproxy
+```
+
+→ after launch
+→ select the **NO** option and enter the **Welcome to OWASP ZAP** 
+→ we'll select the **Automated scan**
+→ enter the Target URL and press **Attack**
+→ after the scan is complete the **Alerts** tab will open
+> this page summarizes the vulnerabilities found during the scan
+
+→ switch to the **Spider** tab
+> all the URLs that were found during the scan are under this tab
+
+→ under the **Spider** tab, there's a **Messages** tab that shows more detailed information regarding the UIRLs obtained
+
+---
 
 #### other SQL injection detection tools
 - **Damn Small SQLi Scanner** (**DSSS**) (https://github.com), 
