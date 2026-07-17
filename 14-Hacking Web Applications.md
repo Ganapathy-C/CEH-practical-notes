@@ -108,11 +108,14 @@ tool used
 
 **WampServer Setting In Victim**:
 
-Note: In this task, the **target** WordPress website (**http://10.10.1.22:8080/CEH**) is hosted by the **victim** machine, Windows Server 2022. Here, the host machine is the Parrot Security machine. Note: **Ensure** that the **Wampserver** is **running** in Windows Server 2022 machine. To run the WampServer, execute the following steps:
-▪ Turn on the **Windows Server 2022**, click Ctrl+Alt+Delete to activate the machine and login with CEH\Administrator / Pa$$w0rd.
-▪ Now, click Type here to search field on the Desktop, search for wampserver64 in the search bar and select Wampserver64 from the results.
-▪ Click the Show hidden icons icon, observe that the WampServer icon appears. 
-▪ Wait for this icon to turn green, which indicates that the WampServer is successfully running.
+Note: In this task, the **target** WordPress website (**http://10.10.1.22:8080/CEH**) is hosted by the **victim** machine, Windows Server 2022. 
+
+Here, the host machine is the Parrot Security machine. Note: **Ensure** that the **Wampserver** is **running** in Windows Server 2022 machine. To run the WampServer, execute the following steps:
+
+  -> Turn on the **Windows Server 2022**, click Ctrl+Alt+Delete to activate the machine and login with CEH\Administrator / Pa$$w0rd.
+  -> Now, click Type here to search field on the Desktop, search for wampserver64 in the search bar and select Wampserver64 from the results.
+  -> Click the Show hidden icons icon, observe that the WampServer icon appears. 
+  -> Wait for this icon to turn green, which indicates that the WampServer is successfully running.
 
 1. Turn on the **Parrot Security** virtual machine, login using attacker/toor.
 2. Launch the Mozilla Firefox web browser and go to **http://10.10.1.22:8080/CEH/wp-login.php?**.
