@@ -106,16 +106,35 @@ tool used
 tool used
 #### [[BurpSuite]]
 
+**WampServer Setting In Victim**:
+
+Note: In this task, the **target** WordPress website (**http://10.10.1.22:8080/CEH**) is hosted by the **victim** machine, Windows Server 2022. Here, the host machine is the Parrot Security machine. Note: **Ensure** that the **Wampserver** is **running** in Windows Server 2022 machine. To run the WampServer, execute the following steps:
+▪ Turn on the **Windows Server 2022**, click Ctrl+Alt+Delete to activate the machine and login with CEH\Administrator / Pa$$w0rd.
+▪ Now, click Type here to search field on the Desktop, search for wampserver64 in the search bar and select Wampserver64 from the results.
+▪ Click the Show hidden icons icon, observe that the WampServer icon appears. 
+▪ Wait for this icon to turn green, which indicates that the WampServer is successfully running.
+
+1. Turn on the **Parrot Security** virtual machine, login using attacker/toor.
+2. Launch the Mozilla Firefox web browser and go to **http://10.10.1.22:8080/CEH/wp-login.php?**.
+   **Note**: Here, we will perform a brute-force attack on the designated WordPress website hosted by the Windows Server 2022 machine.
+   
+
 the admin panel of the Wordpress is notoriously famous for its username enum issue
 in this we try to bruteforce the admin panel
 
-for this add to your proxy
+3. Do this on firefox for this add to your proxy
 → 127.0.0.1
 → port = 8080
 → and check for the **also use this for HTTPS**
 
-or u can open the burp browser to perform the attack
-perform the attack using intruder
+or u can open the burp browser to perform the attack or firefox , hit the url and capture the request on proxy and move it to intruder
+-> perform the attack using intruder
+-> Navigate to the Payloads tab under the Intruder tab and ensure that under the Payload Sets section, the Payload set is selected as 1, and the Payload type is selected as Simple list.
+ 
+-> Under the **Payload settings** [Simple list] section, click the Load... button. 
+-> A file selection window appears; navigate to the location **/home/attacker/Desktop/CEHv13 Module 14 Hacking Web Applications/Wordlist**, select the **username.txt** file and **password.txt** and click the Open button.
+
+
 look for any different **response code** or change in response **length**
 
 ---
@@ -125,15 +144,30 @@ look for any different **response code** or change in response **length**
 tool used
 #### [[WPScan]]
 
-→ to use wpscan we need to create an account https://www.wpscan.com
-→ copy the api token
+Here, we will perform a CSRF attack using vulnerability present in the wp-upg plugin. 
 
+1. Switch to the **Windows Server 2022** machine. Click Type here to search field on the Desktop, search for wampserver64 in the search bar and select **Wampserver64** from the results.
+2. Now, in the right corner of **Desktop**, click the **Show hidden icons** icon, observe that the **WampServer** icon appears.
+3. Wait for this icon to turn green, which indicates that the WampServer is successfully running.
+4.  Now, **open any web browser**, and go to **http://10.10.1.22:8080/CEH/wp-login.php**? (here, we are using Mozilla Firefox).
+     Note: Here, we are opening the above-mentioned website as the victim.
+5. A WordPress webpage appears. Type Username or Email Address and Password as **admin** and **qwerty@123**. Click the Log In button.
+6. Assume that you have installed and configured **User Post Gallery plugin**
+7. Hover your mouse cursor on Plugins in the left pane and click Installed Plugins, as shown in the screenshot.
+8. In the Plugins page, observe that User Post Gallery is installed. **Click Activate** under the **User Post Gallery** plugin to activate the plugin
+9.  Switch to the **Parrot Security** machine.
+10. Open Mozilla Firefox web browser and go to **https://wpscan.com/** and login to the **wpscan account** that you have created in previous task.
+11. You get signed in successfully in the website. Now, click the Get Started button and click **Start for free button under Researcher section**.
+12. The **Edit Profile pag**e appears; in the **API Token** section and observe the **API Token**. Note **down or copy this API Token**; we will use this token in the later step
+13. Close the Firefox browser window.
+14. In the **Parrot Security machine**, open a Terminal window and execute sudo su to run the programs as a root user (When prompted, enter the password toor).
+15. Now, run cd command to jump to the root directory.
+16. In the Terminal window, run **wpscan --url http://10.10.1.22:8080/CEH --api-token API_token_from_Step#12**command.
 ```bash
 wpscan --url <target-URl/IP> --api-token <api-token-copied> 
 ```
-
-→ it'll scan the website for plugins and if they are vulnerable 
-> *in lab* we see that we found a plugin **wp-upg** that has an **unauthenticated RCE**
+17. it'll scan the website for plugins and if they are vulnerable 
+18. *in lab* we see that we found a plugin **wp-upg** that has an **unauthenticated RCE**
 
 → to perform the attack
 ```bash
