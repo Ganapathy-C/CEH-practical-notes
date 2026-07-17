@@ -131,6 +131,7 @@ in this we try to bruteforce the admin panel
 → and check for the **also use this for HTTPS**
 
 or u can open the burp browser to perform the attack or firefox , hit the url and capture the request on proxy and move it to intruder
+
 4. perform the attack using intruder
 5. Navigate to the Payloads tab under the Intruder tab and ensure that under the Payload Sets section, the Payload set is selected as 1, and the Payload type is selected as Simple list.
  
