@@ -117,26 +117,26 @@ Here, the host machine is the Parrot Security machine. Note: **Ensure** that the
   3. Click the Show hidden icons icon, observe that the WampServer icon appears. 
   4. Wait for this icon to turn green, which indicates that the WampServer is successfully running.
 
-1. Turn on the **Parrot Security** virtual machine, login using attacker/toor.
-2. Launch the Mozilla Firefox web browser and go to **http://10.10.1.22:8080/CEH/wp-login.php?**.
+5. Turn on the **Parrot Security** virtual machine, login using attacker/toor.
+6. Launch the Mozilla Firefox web browser and go to **http://10.10.1.22:8080/CEH/wp-login.php?**.
    **Note**: Here, we will perform a brute-force attack on the designated WordPress website hosted by the Windows Server 2022 machine.
    
 
 the admin panel of the Wordpress is notoriously famous for its username enum issue
 in this we try to bruteforce the admin panel
 
-3. Do this on firefox for this add to your proxy
+7. Do this on firefox for this add to your proxy
 → 127.0.0.1
 → port = 8080
 → and check for the **also use this for HTTPS**
 
 or u can open the burp browser to perform the attack or firefox , hit the url and capture the request on proxy and move it to intruder
 
-4. perform the attack using intruder
-5. Navigate to the Payloads tab under the Intruder tab and ensure that under the Payload Sets section, the Payload set is selected as 1, and the Payload type is selected as Simple list.
+8. perform the attack using intruder
+9. Navigate to the Payloads tab under the Intruder tab and ensure that under the Payload Sets section, the Payload set is selected as 1, and the Payload type is selected as Simple list.
  
-6. Under the **Payload settings** [Simple list] section, click the Load... button. 
-7. A file selection window appears; navigate to the location **/home/attacker/Desktop/CEHv13 Module 14 Hacking Web Applications/Wordlist**, select the **username.txt** file and **password.txt** and click the Open button.
+10. Under the **Payload settings** [Simple list] section, click the Load... button.
+11. A file selection window appears; navigate to the location **/home/attacker/Desktop/CEHv13 Module 14 Hacking Web Applications/Wordlist**, select the **username.txt** file and **password.txt** and click the Open button.
 
 
 look for any different **response code** or change in response **length**
