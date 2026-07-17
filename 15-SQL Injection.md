@@ -14,11 +14,12 @@ You can use sqlmap to perform SQL injection on a target website using various te
 > once cookies are provided it can search deeper and with more precision
 
 to find the cookies
-→ open the website
-→ login *this page's URL is also necessary as this is the URL we'll be using in the command so we can copy it*
-→ __right-click__ anywhere on the page and press __inspect__
-→ in the __console__ tab write `document.cookie`
-→ copy the whole line including the \""
+1. open the website **http://www.moviescope.com/**. A Login page loads; enter the Username and Password as sam and test, respectively. Click the Login button.
+2. login *this page's URL is also necessary as this is the URL we'll be using in the command so we can copy it*
+3. Once you are logged into the website, **click the View Profile tab** on the menu bar and, when the page has loaded, make a note of the URL in the address bar of the browser.
+4. __right-click__ anywhere on the page and press __inspect__
+5. in the __console__ tab write `document.cookie`
+6. copy the whole line including the \""
 
 
 ```bash
@@ -48,7 +49,7 @@ we can try
 ```bash
 sqlmap -u <target url with paramter> --cookie <cookie> --os-shell
 ```
-→ type `help` to view the available commands
+→ type `help` to view the available commands and Type TASKLIST and press Enter to view a list of tasks that are currently running on the target system
 
 #### other SQL injection tools
 - Mole - https://sourceforge.net
