@@ -160,7 +160,7 @@ apt install docker.io
 cd log4j-shell-poc/
 ```
 ```bash
-docker build -t log4j-shell-poc
+docker build -t log4j-shell-poc .
 ```
 > -t = specifies a pseudo-tty
 
