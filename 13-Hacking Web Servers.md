@@ -80,7 +80,7 @@ tool used
 various nmap scripts are useful to footprint or enumerate a web-server
 
 ```bash
-nmap -sV --script=http-enu, <target-domain>
+nmap -sV --script=http-enum <target-domain>
 ```
 *here target domain = www.goodshopping.com*
 
