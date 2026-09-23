@@ -133,4 +133,43 @@ After establishing a successful connection with the MQTT broker, the MQTT client
 
 → refer to the Manual, better explained there
 
----
+Here, we are using the ICSim tool to simulate CAN protocol and demonstrate how attackers sniff the transmitted packets and perform replay attack to gain basic control over the target.
+
+-> Switch to the **Ubuntu** machine and login with **Ubuntu/toor**. 
+
+-> In the Ubuntu machine, open a Terminal window and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor).
+
+-> Run **sudo apt-get install can-utils** to install CAN utility. Note: While installing if prompted Do you want to continue?, type Y and press Enter.
+
+-> Now, to setup a virtual CAN interface issue following commands:
+```bash
+	 sudo modprobe can
+	 sudo modprobe vcan
+	 sudo ip link add dev vcan0 type vcan
+	 sudo ip link set up vcan0
+```
+-> To check whether Virtual CAN interface is setup successfully, run ifconfig. Here, vcan0 interface is present which confirms that our Virtual CAN interface is setup successfully.
+
+-> Run **chmod -R 777 ICSim** to give permissions to the ICSim folder.
+
+-> Now, run **cd ICSim** to navigate to ICSim directory and execute make command to create two executable files for IC Simulator and CANBus Control Panel.
+
+-> Run **./icsim vcan0** to start the ICSim simulator. You will see the IC Simulator interface as shown in the screenshot.
+
+-> **Open a new terminal tab** and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor). Navigate to ICSim directory to do so run **cd ICSim/**.
+
+-> Execute** ./controls vcan0** to start the CANBus Control Panel. You will see the CANBus Control Panel interface as shown in the screenshot.
+
+-> Now, we will **start sniffer to capture the traffic** sent to the ICSim Simulator by CANBus control panel simulator. To do so, **open a new terminal** tab and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor). Navigate to ICSim directory to do so run **cd ICSim/**.
+
+-> Execute **cansniffer -c vcan0** to start sniffing on the vcan0 interface. Leave this sniffer on.
+
+-> **Open a new terminal** and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor). Navigate to ICSim directory to do so run **cd ICSim/**. To capture the logs run **candump -l vcan0**.
+
+-> After **starting to capture the logs**, open ICSim and Controller simulator and perform functions such as acceleration, turning left/right, opening and locking doors so that logs are generated. Once you are done, terminate the ongoing process by pressing **Ctrl + C**
+
+<img width="852" height="332" alt="image" src="https://github.com/user-attachments/assets/aa3eff31-cb7b-46a0-93e1-102f2c894955" />
+
+->  Now verify if you have obtained the **log file by executing ls command**. The .log file has been generated as shown in the screenshot.
+
+->  Now, **to perform replay attack**, run **canplayer -I candump-2024-05-07_063502.log** and press enter. Note: Once the log file is executed, you can see the movements that were performed while creating the log file in real time in IC Simulator and CANBus control panel simulator. Note: The log file name might vary while performing lab.
