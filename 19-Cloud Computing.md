@@ -6,15 +6,24 @@ tool used
 #### [[AADInternals]]
 #tool/windows 
 
+-> On Windows machine, Navigate to E:\CEH-Tools\CEHv13 Module 19 Cloud Computing\GitHub Tools\ and copy **AADInternals** folder and paste it on Desktop.
+
+-> In the Windows search type powershell and under PowerShell click on Run as Administrator to open an administrator PowerShell window.
+
 → in the `PowerShell`
 ```PowerShell
 cd C:\Users\Admin\Desktop\AADInternals
 ```
 ```PowerShell
-Install-Module AADInternals
+ Install-Module AADInternals
+```
+-> Note: In the Do you want PowerShellGet to install and import the NuGet provider now? Question **type Y** and press Enter. In the Are you sure you want to install the modules from **“PSGallery**”? question **type A** and press Enter
+
+```PowerShell
+ Import-Module AADInternals
 ```
 ```PowerShell
-Invoke-AADIntReconAsOutsider -DomainName company.com | Format-table
+ Invoke-AADIntReconAsOutsider -DomainName company.com | Format-table
 ```
 > replace <company name\> with the target company *here eccouncil.org*
 > from this we get info like -
@@ -37,9 +46,9 @@ Invoke-AADIntUserEnumerationAsOutsider -UserName user@company.com
 Get-Content .\users.txt | Invoke-AADIntUserEnumerationAsOutsider -Method Normal
 ```
 
-→ now to get login information
+→ To get the tenant ID for the given user, domain, or Access Token
 ```PowerShell
-Get-AADIntLoginInformation -Domain company.com
+Get-AADIntTenantID -Domain company.com
 ```
 
 → to get login information for a user
