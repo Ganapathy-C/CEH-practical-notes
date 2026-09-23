@@ -48,7 +48,7 @@ so we need to choose options like:
 → try various options and have a look around
 
 ---
-### Hack by creating an apk file 
+### Hack by creating an malicious apk file using AndroRAT
 
 tool used
 #### [[AndroRAT]]
