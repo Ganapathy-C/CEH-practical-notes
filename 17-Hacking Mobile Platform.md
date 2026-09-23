@@ -33,6 +33,10 @@ python3 phonesploitpro.py
 
 > → in the shell change to `**sdcard**` to view all the phone files
 
+-> press `23` to open a link on the device 
+
+-> press `27` to get the device information
+
 sometimes we need to view of download or view or file
 so we need to choose options like:
 - **Copy All Camera Photos**
