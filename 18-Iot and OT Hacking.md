@@ -83,17 +83,23 @@ more shodan searches
 > in the lab we simulate this traffic using **Bevywise IoT Simulator**
 > check lab manual for more info
 
-> On one Windows **machine1**, run the **Bevywise_MQTTRoute**.exe which will acts as Broker for messages being published.
+-> On one Windows **machine1**, run the **Bevywise_MQTTRoute**.exe which will acts as Broker for messages being published.
 
-> On  Another windows **machine2**, run the **Bevywise_IOTSimulator**.exe , where we will create a network with name and description and will **give IP of machine1 (Broker)** and add the IOT device and will subscribe to the topic.
-	1. Create a IOT network give an name, id, description
-    2. Add a new device with name and ID and start the device by clicking the red button at the left top corner, red color will change to green once it was connected to Broker
-	3. click on device and subscribe to the topic and give a QOS
-	4. open the wireshark and run on the local network to capture the MQTT traffic or message after being published to device.
+-> On  Another windows **machine2**, run the **Bevywise_IOTSimulator**.exe , where we will create a network with name and description and will **give IP of machine1 (Broker)** and add the IOT device and will subscribe to the topic.
 
-> On Windows **machine1** , open the browser and run **http://localhost:8000** with **admin:admin**
-	1. We can able to find the devices that is connected
-	2. click on the device and select the topic and write the message and click on send.
+	->. Create a IOT network give an name, id, description
+	
+    ->. Add a new device with name and ID and start the device by clicking the red button at the left top corner, red color will change to green once it was connected to Broker
+	
+	->. click on device and subscribe to the topic and give a QOS
+	
+	->. open the wireshark and run on the local network to capture the MQTT traffic or message after being published to device.
+
+-> On Windows **machine1** , open the browser and run **http://localhost:8000** with **admin:admin**
+
+	->. We can able to find the devices that is connected
+	
+	->. click on the device and select the topic and write the message and click on send.
 
 tool used
 #### [[Wireshark]]
