@@ -31,7 +31,7 @@ python3 phonesploitpro.py
 
 → press `14` to get a shell on the device
 
-> → try `pwd` etc. etc. move around like a linux machine `cd` `ls`
+> → in the shell change to `**sdcard**` to view all the phone files
 
 sometimes we need to view of download or view or file
 so we need to choose options like:
