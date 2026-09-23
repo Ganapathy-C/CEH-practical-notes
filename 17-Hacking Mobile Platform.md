@@ -18,14 +18,19 @@ python3 phonesploitpro.py
 ```
 
 → press `y`to any prompts, main menu screen shows up
-→ press `1` to connect to a device and enter the IP address of the Android device
-→ connection established on port 5555 *if not, start again*
+
+→ press `1` to connect to a device and enter the IP address of the Android device, connection established on port 5555 *if not, start again*
+
 → press `6` to take a screenshot and enter the location where to save the file *here /home/attacker*
-→ press `13`and then `2` to list all the installed apps
+
+→ press `13` to know about apps on the phone and then `2` to list all the installed apps
+
 > we can use this info to launch or uninstall any installed apps
 
-→ press `10` to run an app
-→ press `14`to get a shell on the device
+→ press `10` to run an app with package name from option `13`
+
+→ press `14` to get a shell on the device
+
 > → try `pwd` etc. etc. move around like a linux machine `cd` `ls`
 
 sometimes we need to view of download or view or file
