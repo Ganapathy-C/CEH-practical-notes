@@ -47,28 +47,26 @@ to decrypt
 
 an SSL = Self Signed Certificate
 
-in this lab we are creating one in [[IIS]]
-but we can also do this in [[Apache]]
+in this lab we are creating Self Signed Certificate  in [[IIS]] Manager
+but we can also do this in Server Manger via Active Directory Certificate Services(ADCS)
 
 to check if our website has ssl certificate
-→ launch a browser
-→ enter your website URL with "https" *here `https://www.goodshopping.com`*
-→ it shouldn't load
+- launch a browser
+- enter your website URL with "https" *here `https://www.goodshopping.com`*
+- it shouldn't load
 
-→ search for IIS in the windows search and open it
-→ click on the machine name in the left pane
-→ double click the `Server Certificates`Under the IIS section
-→ in the right pane `Create a self-signed Certificate`
-→ enter the details, choose `Personal` option from the drop down menu
-→ it'll create a new self signed certificate that is visible in the server certificates section
-→ in the left pane expand the `Sites`  and click the website that needs to be on the HTTPS 
-→ after choosing, select `Bindings`from the right pane
-→ click `Add`
-→ enter the details , choose port 443
-→ select the SSL certificate from the drop down menu
-→ right click the website name in the left pane and select `Refresh`
-→ reload the page in browser and we should see a different warning this time
-→ accept the risk and continue
+- Turn on the Windows Server 2019 virtual machine. 
+- search for IIS in the windows search and open it
+- click on the machine name(**Server2019**) in the left pane
+- In the **Middle pane** -> **Click on Server Certificates**
+- double click the **Server Certificates** in the **righthand pane**
+- The Create Self-Signed Certificate window appears; type **GoodShopping** in the Specify a **friendly name** for the certificate field. Ensure that the **Personal option** is **selected** in the Select a certificate store for the new certificate field; then, click OK.
+- **Expand** the **Sites node** from the **left-hand pane** and select **GoodShopping** from the available sites. **Click Bindings**... from the **right-hand pane** in the **Actions** section.
+- The **Add Site Binding** window appears; choose **https** from the Type field drop-down list. Once you choose the https type, the port number in the Port field automatically changes to **443** (the channel on which HTTPS runs).
+- Choose the **IP address** on which the site is hosted (here, **10.10.1.19**).
+- Under the **Host name** field, type **www.goodshopping.com**. Under the **SSL certificate** field, select **GoodShopping** from the drop-down list, and click OK
+- Now,**right-click the name of the site** for which you have created the self-signed certificate (here, **GoodShopping**) and **click Refresh** from the context menu.
+-  Open the **Mozilla Firefox** browser and go to **https://www.goodshopping.com**. 
 
 ---
 
