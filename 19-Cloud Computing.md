@@ -82,7 +82,8 @@ Get-AADIntTenantDomains -Domain company.com
 tool used
 #### AWS CLI
 
-first we need to create an AWS account for some details that we will be needing to configure 
+first we need to create an AWS root user account, go to  Click the AWS account drop-down menu  -> security credentials -> access keys. create access keys
+
 - AWS Access Key ID
 - AWS Secret Access Key
 - Default region name
@@ -91,13 +92,19 @@ first we need to create an AWS account for some details that we will be needing 
 
 → in the root terminal
 ```bash
+sudo su
 cd
 ```
 > to move to the root home directory
 
 → to install AWS CLI
 ```bash
-pip3 install awscli
+ pip3 install awscli
+```
+
+-> To configure AWS cli
+```bash
+aws configure
 ```
 
 → https://console.aws.amazon.com
@@ -111,8 +118,8 @@ aws s3 ls s3://<s3-bucket-name>
 ```
 > this will show you the list of directories in the specified bucket
 
-→ in a browser window http://certifiedhacker02.s3.amazonaws.com
-> http://<bucket-name\>.s3.amazonaws.com
+→ in a browser window https://certifiedhacker02.s3.amazonaws.com
+> https://<bucket-name\>.s3.amazonaws.com
 > this will list the directories and files available in the bucket
 
 → moving a file to the bucket
@@ -122,12 +129,16 @@ echo "you are hacked" >> hack.txt
 
 ```bash
 aws s3 mv hack.txt s3://<s3-bucket-name>
+
+ aws s3 mv hack.txt s3://certifiedhacker02
 ```
 > now we reload the browser page and see that there's a file named `hack.txt`
 
 → removing the file from the bucket
 ```bash
-aws s3 rm s3://<s3-bucket-name>
+ aws s3 rm s3://<s3-bucket-name>
+
+ aws s3 rm s3://certifiedhacker02/hack.txt
 ```
 > reload the page and we see that the file is deleted
 
