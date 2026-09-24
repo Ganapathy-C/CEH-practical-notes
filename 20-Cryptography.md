@@ -76,13 +76,35 @@ tool used
 #### [[VeraCrypt]]
 #tool/windows #gui 
 
-we can use it to find all the files into a secret volume
-→ select the file
-→ mount it onto a random drive
-→ enter password
-→ open file explorer and explore the drive
-
-
+we can use it to hide all the files into a secret volume.
+- **Open VeraCrypt**. The VeraCrypt main window appears. click the **Create Volume** button.
+- The **VeraCrypt Volume Creation Wizard** window appears. Ensure that the **Create an encrypted file container radio-button** is selected and click **Next** to proceed.
+- In the **Volume Type wizard**, keep the **default settings** and click **Next**.
+- In the **Volume Location** wizard, click **Select File**....
+- The **Specify Path and File Name window** appears; navigate to the desired location (here, Desktop), provide **the File name as MyVolume**, and click **Save**
+- After **saving the file**, the **location** of a **file** containing the VeraCrypt volume appears under the **Volume Location field**; then, click **Next**.
+- In the **Encryption Options wizard**, keep the **default** settings and click **Next**.
+- In the **Volume Size wizard**, ensure that the **MB radio-button** is selected and specify the **size of the VeraCrypt container as 5**; then, click Next.
+- The **Volume Password wizard** appears; provide a **strong password in the Password field**, retype in the Confirm field, and click **Next**. The **password** provided in this lab is **qwerty@123**. Note: A VeraCrypt Volume Creation Wizard warning pop-up appears; then, click **Yes**.
+- The Volume Format wizard appears; ensure that **FAT is selected in the Filesystem option** and Default is selected in Cluster option.
+- Check the **checkbox under the Random Pool, Header Key, and Master Key** section.
+- Move **your mouse as randomly as possible within the Volume Creation Wizard window for at least 30 seconds** and click the **Format** button.
+- After **clicking** Format, **VeraCrypt** will create a file called **MyVolume** in the provided folder. This file depends on the VeraCrypt container (it will contain the encrypted VeraCrypt volume)
+- Depending on the size of the volume, volume creation may take some time.
+- Once the **volume** is **created**, a VeraCrypt Volume Creation Wizard dialog-box appears; **click OK**.
+- In the **VeraCrypt Volume Creation Wizard** window, a **Volume Created message appears**; then, click **Exit**.
+- The **VeraCrypt main window appears**; s**elect a drive (here, I:**) and click **Select File**....
+-  The Select a VeraCrypt Volume window appears; navigate to Desktop, click **MyVolume**, and click **Open**.
+- The window closes, and the **VeraCrypt window appears displaying the location of selected volume under the Volume** field; then, click **Mount**.
+- The Enter password dialog-box appears; type the **password** you specified in Step#11 into the **Password** **field** and click OK.
+-  After the password is verified, VeraCrypt will **mount** the **volume in I: drive**, as shown in the screenshot.
+- **MyVolume** has **successfully** **mounted** the container as a virtual disk (I:). The virtual disk is entirely encrypted (including file names, allocation tables, free space, etc.) and behaves similarly to a real disk. You can copy or move files to this virtual disk to encrypt them.
+- **Create a text file on Desktop and name it Test**. Open the text file and insert text.
+- Click File in the menu bar and click Save
+- **Copy the file from Desktop and paste it into Local Disk (I:)**. Close the window.
+- Switch to the **VeraCrypt window**, click **Dismount**, and then click **Exit**.
+- The I: drive located in This PC disappears.
+  
 
 ### Steganography
 
