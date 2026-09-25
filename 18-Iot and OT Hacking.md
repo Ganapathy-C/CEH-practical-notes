@@ -152,13 +152,13 @@ Here, we are using the ICSim tool to simulate CAN protocol and demonstrate how a
 
 -> Run **chmod -R 777 ICSim** to give permissions to the ICSim folder.
 
--> Now, run **cd ICSim** to navigate to ICSim directory and execute make command to create two executable files for IC Simulator and CANBus Control Panel.
+-> Now, run **cd ICSim** to navigate to ICSim directory and execute **make** command to create two executable files for IC Simulator and CANBus Control Panel.
 
 -> Run **./icsim vcan0** to start the ICSim simulator. You will see the IC Simulator interface as shown in the screenshot.
 
 -> **Open a new terminal tab** and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor). Navigate to ICSim directory to do so run **cd ICSim/**.
 
--> Execute** ./controls vcan0** to start the CANBus Control Panel. You will see the CANBus Control Panel interface as shown in the screenshot.
+-> Execute **./controls vcan0** to start the CANBus Control Panel. You will see the CANBus Control Panel interface as shown in the screenshot.
 
 -> Now, we will **start sniffer to capture the traffic** sent to the ICSim Simulator by CANBus control panel simulator. To do so, **open a new terminal** tab and execute **sudo su** to run the programs as a root user (When prompted, enter the password toor). Navigate to ICSim directory to do so run **cd ICSim/**.
 
