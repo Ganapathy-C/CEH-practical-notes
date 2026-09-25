@@ -118,7 +118,7 @@ aws s3 ls s3://<s3-bucket-name>
 ```
 > this will show you the list of directories in the specified bucket
 
-→ in a browser window https://certifiedhacker02.s3.amazonaws.com
+→ in a browser window https://certifiedhacker003.s3.amazonaws.com
 > https://<bucket-name\>.s3.amazonaws.com
 > this will list the directories and files available in the bucket
 
@@ -130,7 +130,7 @@ echo "you are hacked" >> hack.txt
 ```bash
  aws s3 mv hack.txt s3://<s3-bucket-name>
 
- aws s3 mv hack.txt s3://certifiedhacker02
+ aws s3 mv hack.txt s3://certifiedhacker003
 ```
 > now we reload the browser page and see that there's a file named `hack.txt`
 
@@ -138,7 +138,7 @@ echo "you are hacked" >> hack.txt
 ```bash
  aws s3 rm s3://<s3-bucket-name>
 
- aws s3 rm s3://certifiedhacker02/hack.txt
+ aws s3 rm s3://certifiedhacker003/hack.txt
 ```
 > reload the page and we see that the file is deleted
 
