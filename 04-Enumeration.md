@@ -51,6 +51,14 @@ tool used
 #tool/linux 
 
 > Cli tool that scans numerous SNMP nodes instantly and identifies a set of variables that are available for accessing the target network
+> We can also able to do it with the help of Nmap
+
+```bash
+nmap -p 161 -sU --script=snmp-enum-users IP
+nmap -p 161 -sU --script=snmp-processors IP
+nmap -p 161 -sU --script=snmp-open-relay IP
+```
+
 
 
 ```bash
