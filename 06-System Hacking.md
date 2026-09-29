@@ -634,7 +634,7 @@ cme rdp 10.10.1.0/24 -u /root/ADtools/users.txt -p "cupcake"
 > rdp = protocol to be targetted
 
 from the list is someone uses the same password itll be cracked and the ip address od the user will be shown
-try connecting to the ip address
+try connecting to the ip address of the machine that uses the same password with RDP
 → open `remmina`
 → fill out the details extracted
 → try to connect to the client
