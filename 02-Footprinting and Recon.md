@@ -201,6 +201,7 @@ workspace list
 
 ```
 db insert domains
+show domains
 ```
 > to set the target domain
 > type the name of the target in the next line
