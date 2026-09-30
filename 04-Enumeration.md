@@ -57,6 +57,8 @@ tool used
 nmap -p 161 -sU --script=snmp-enum-users IP
 nmap -p 161 -sU --script=snmp-processors IP
 nmap -p 161 -sU --script=snmp-open-relay IP
+nmap -sU -p161 --script=snmp-sysdescr <IP>
+nmap -sU -p161 --script=snmp-win32-services <IP>
 ```
 
 
