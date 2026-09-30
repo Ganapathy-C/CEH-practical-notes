@@ -213,6 +213,11 @@ modules load brute
 here we are using the module `recon/domains-hosts/brute_hosts` - to harvest the hosts
 ```
 modules load recon/domains-hosts/brute_hosts
+options list
+```
+we need to setup the required options and run it
+```
+options set
 ```
 ```
 run
