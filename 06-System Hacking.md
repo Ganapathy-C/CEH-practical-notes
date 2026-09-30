@@ -2,7 +2,7 @@
 
 exploiting for gaining access to the systems to steal or misuse the data/information
 
-## gaining access
+## gaining access, LLMNR NBTNS poisoining
 
 tool used
 #### [[Responder]]
