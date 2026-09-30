@@ -54,9 +54,8 @@ tool used
 > We can also able to do it with the help of Nmap
 
 ```bash
-nmap -p 161 -sU --script=snmp-enum-users IP
+nmap -p 161 -sU --script=snmp-win32-users IP
 nmap -p 161 -sU --script=snmp-processors IP
-nmap -p 161 -sU --script=snmp-open-relay IP
 nmap -sU -p161 --script=snmp-sysdescr <IP>
 nmap -sU -p161 --script=snmp-win32-services <IP>
 ```
