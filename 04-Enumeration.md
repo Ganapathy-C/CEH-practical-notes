@@ -190,12 +190,13 @@ nslookup
 ```
 ```
 set type=soa
+www.certifiedhacker.com
 ```
 > soa = Start of Authority
 > > record to retrieve administrative information about the DNS zone of the target domain
 > > results shows - primary name server and responsible mail address
 
-within the interactive shell
+within the interactive shell, enter the dns server from the above result
 ```
 ls -d <name-server>
 ```
