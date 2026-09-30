@@ -180,7 +180,7 @@ marketplace install all
 > marketplace is the place or tab where all the modules are located that can be used inside of recon-ng
 
 ```
-module search
+modules search
 ```
 > displays all the modules available in recon-ng
 
