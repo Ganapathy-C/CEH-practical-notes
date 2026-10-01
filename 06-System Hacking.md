@@ -48,6 +48,11 @@ docker run -d -p 80:80 reverse_shell_generator
 → copy both commands and run in separate terminals
 → an .exe file will be created
 → now we need to transfer this .exe file to the target computer
+```
+	click on places on the file explorer of parrot
+	smb:\\10.10.1.11
+	place it in a folder
+```
 → as soon as the .exe file runs in the target pc, we will gain access to the computer
 
 we can do the same with other scripts.
