@@ -84,7 +84,7 @@ The process needs to be running on the target machine. We need to run the Immuni
 		stats.spk:
 		s_readline();
 		s_string(“STATS “);
-		s_string_variable(0);
+		s_string_variable("0");
 
 		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
 	
