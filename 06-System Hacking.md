@@ -64,7 +64,10 @@ next we are using a PowerShell script
 → copy the payload and save it in a .ps1 file - *this is our payload that we need to run on the target machine*
 → change the listener type to `hoaxshell`
 
-→ in the target pc use PowerShell to run the .ps1 file
+→ in the target pc use PowerShell as admin to run the .ps1 file
+``` powershell
+	.\shell.ps1
+```
 
 ## Buffer Overflow (tbc)
 ---
