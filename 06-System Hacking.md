@@ -117,7 +117,7 @@ The process needs to be running on the target machine. We need to run the Immuni
 
 	Step3: finding offset:
 		
-		/usr/share/metasploit-framework/toosl/exploit/pattern_create.rb -l  10500
+		/usr/share/metasploit-framework/toosl/exploit/pattern_create.rb -l  10500(output from last step, when server crashed)
 
 		We are able to find the ESP has been overloaded with the values that we have sent and Take the EIP value from the immunity debugger after it was crashed. The output from below will give exact bytes that are required to overwrite.
 
