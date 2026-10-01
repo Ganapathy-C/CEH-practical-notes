@@ -49,7 +49,7 @@ docker run -d -p 80:80 reverse_shell_generator
 → an .exe file will be created
 → now we need to transfer this .exe file to the target computer
 ```
-	click on places on the file explorer of parrot
+	click on places on the file explorer of parrot and click on network and click on edit icon to enter below 
 	smb:\\10.10.1.11
 	place it in a folder
 ```
