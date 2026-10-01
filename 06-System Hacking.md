@@ -82,7 +82,7 @@ The process needs to be running on the target machine. We need to run the Immuni
 		 It is used to test whether the running process is vulnerable or not. Here 
 		
 		stats.spk:
-		s_readline(0);
+		s_readline();
 		s_string(“STATS “);
 		s_string_variable(0);
 
