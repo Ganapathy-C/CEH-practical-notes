@@ -688,7 +688,7 @@ not we get much more commands to enumerate further
 	- groups
 	- memberships
 
-> in the lab we see a user named *SQL_srv* who has some higher privileges
+> in the lab we see a user named *SQL_srv* who has some higher privileges( member of domain admins )
 > so we will be attacking this further
 
 more such commands to enumerate are
