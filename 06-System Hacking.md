@@ -321,6 +321,7 @@ run
 - set session 1
 - show options
 - set LHOST 10.10.1.3
+- set Lport 555
 - set TARGET 0
 > 0 indicates nothing, but the Exploit Target ID
 
