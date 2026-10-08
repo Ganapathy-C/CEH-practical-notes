@@ -9,6 +9,25 @@ ping
 ping 12.32.23.23
 ```
 
+### Hping3
+
+ICMP ping scan
+```bash
+sudo hping3 -1 <target_ip>
+```
+
+TCP Syn scan
+
+```bash
+sudo hping3 -S -p <port> <target_ip>
+```
+
+TCP Ack Scan
+
+```bash
+sudo hping3 -A -p <port> <target_ip>
+```
+
 ### WHOIS
 
 ```bash
@@ -353,3 +372,10 @@ A tool used to extract ZIP archives and inspect their contents.
 7z l archive.zip
 7z x archive.zip
 ```
+
+web applicaiton pentesting tools
+1. owaspzap
+2. smartscanner - UI - windows
+3. wapiti - cli
+4. snipper - cli
+5. skipfish - cli
