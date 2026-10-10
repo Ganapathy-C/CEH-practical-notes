@@ -11,6 +11,20 @@ also we need to perform DNS enumeration on the target, for that we use tools suc
 - [[DNSRecon]]
 - Domain Dossier - https://centralops.net
 
+1. owaspzap
+2. smartscanner - UI - windows
+3. wapiti - cli
+4. snipper - cli 
+  ```bash
+  sniper -t www.moviescope.com -w scan.txt
+  ```
+5. skipfish - cli
+  ```bash
+    skipfish -o output_directory http://www.moviescope.com
+
+  ```
+
+
 ## Footprinting the Web Infrastructure
 
 ### initial Recon and enumeration
