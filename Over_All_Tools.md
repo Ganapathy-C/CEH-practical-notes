@@ -341,6 +341,10 @@ For Null, FIN, and Xmas scans, no response generally indicates that the port is 
 
 ### File Inspection Tools
 
+Check file metadata
+```
+exiftool image.jpg
+```
 ```bash
 file filename
 strings filename
@@ -367,8 +371,36 @@ steghide --info coverFile
 
 ### Stegseek and Stegbrute
 
-- **Stegseek:** Brute-forces passphrase-protected steganography files.
-- **Stegbrute:** Brute-forces passphrase-protected steganography files.
+- **Stegseek:** Brute-forces passphrase-protected steganography JPG files.Fast tool for cracking passwords hidden in JPG images created with steghide.
+
+```
+stegseek image.jpg wordlist.txt
+```
+Quiet mode
+```
+stegseek secret.jpg rockyou.txt -q
+```
+Brute force and store the result in text file
+```
+stegseek secret.jpg rockyou.txt -xf output.txt
+```
+
+- **Stegbrute:** Brute-forces passphrase-protected steganography files. Password brute-force tool for steghide files.
+```
+stegbrute image.jpg wordlist.txt
+```
+Character bruteforce:
+```
+stegbrute secret.jpg -b
+```
+Specifying password length
+```
+stegbrute secret.jpg -b -l 4
+```
+Verbose output
+```
+stegbrute secret.jpg rockyou.txt -v
+```
 
 ### 7-Zip
 
@@ -575,24 +607,24 @@ tcp.analysis.duplicate_ack
 
 Signs:
 
-Sudden TCP RST packets
-Duplicate ACK storms
-Sequence number anomalies
-Unexpected source IP sending packets in an existing session
+    1. Sudden TCP RST packets
+    2. Duplicate ACK storms
+    3. Sequence number anomalies
+    4. Unexpected source IP sending packets in an existing session
 
 ## Common UDP ports:
 
-Port	Service
-53	    DNS
-67/68	DHCP
-69	    TFTP
-123	    NTP
-137	    NetBIOS Name Service
-161	    SNMP
-500	    IKE/IPsec
-514	    Syslog
-1900	SSDP
-4500	IPsec NAT-T
+| Port  |	Service
+| 53    |	    DNS
+| 67/68 |	    DHCP
+| 69    |	    TFTP
+| 123   |	    NTP
+| 137   |	    NetBIOS Name Service
+| 161   |	    SNMP
+| 500   |	    IKE/IPsec
+| 514   |	    Syslog
+| 1900  |	    SSDP
+| 4500  |	    IPsec NAT-T
 
 
 ## important links:
