@@ -281,10 +281,11 @@ run
 ```
 workspaces create reconnaissance
 ```
+>uses domain to retrieve the contact and update it
+
 ```
 modules load recon/domains-contacts/whois_pocs
 ```
->uses ARIN Whois RWS to harvest POC data
 
 ```
 info command
