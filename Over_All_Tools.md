@@ -386,10 +386,6 @@ A tool used to extract ZIP archives and inspect their contents.
 4. snipper - cli
 5. skipfish - cli
 
-### important links:
-1. GTFObins
-2. https://ceh-practical.cavementech.com/module-2.-footprinting-and-reconnaissance/3.-footprinting-through-social-networking-sites
-
 ### wireshark
 
 Search by request method
@@ -598,3 +594,10 @@ Port	Service
 1900	SSDP
 4500	IPsec NAT-T
 
+
+## important links:
+1. GTFObins
+
+2. https://ceh-practical.cavementech.com/module-2.-footprinting-and-reconnaissance/3.-footprinting-through-social-networking-sites
+
+3. https://github.com/hari-the-billionaire/CEH-v13-Engage-Skill-Check/blob/main/CEH%20Skill%20Check%20Engage%20Part%201.md
