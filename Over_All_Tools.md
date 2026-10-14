@@ -614,17 +614,18 @@ Signs:
 
 ## Common UDP ports:
 
-| Port  |	Service
-| 53    |	    DNS
-| 67/68 |	    DHCP
-| 69    |	    TFTP
-| 123   |	    NTP
-| 137   |	    NetBIOS Name Service
-| 161   |	    SNMP
-| 500   |	    IKE/IPsec
-| 514   |	    Syslog
-| 1900  |	    SSDP
-| 4500  |	    IPsec NAT-T
+| Port  |	Service                 |
+| ------|---------------------------|
+| 53    |	    DNS                 |
+| 67/68 |	    DHCP                |
+| 69    |	    TFTP                |
+| 123   |	    NTP                 |
+| 137   |	    NetBIOS Name Service| 
+| 161   |	    SNMP                |
+| 500   |	    IKE/IPsec           |
+| 514   |	    Syslog              |
+| 1900  |	    SSDP                |
+| 4500  |	    IPsec NAT-T         |
 
 
 ## important links:
