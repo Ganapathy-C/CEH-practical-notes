@@ -40,6 +40,19 @@
 
 - Pentest-Tools Find Subdomains (https://pentesttools.com) - identify the domains and subdomains of any target
 
+## Website Technology gathering
+
+#### [[buildwith]]
+#tool/linux
+
+```
+    buildwith www.certifiedhacker.com
+```
+
+#tool/windows
+
+website - w3tech
+
 
 ## Information gathering from various social networking sites
 tools used 

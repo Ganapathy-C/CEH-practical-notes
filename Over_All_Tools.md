@@ -78,9 +78,15 @@ enum4linux -a 12.23.42.43
 ### smbclient
 
 ```bash
+smbclient -L -N  10.10.128.80
 smbclient -L -N -I 10.10.128.80
 smbclient -I 10.10.128.80 -L -N
 smbclient //10.10.128.80/Anonymous
+
+smbclient -L 10.10.2.14 -U "Admin"
+
+smbclient //10.10.2.14/share -U "Admin"
+
 ```
 
 - `-I`: Specifies the IP address.
@@ -611,6 +617,67 @@ Signs:
     2. Duplicate ACK storms
     3. Sequence number anomalies
     4. Unexpected source IP sending packets in an existing session
+
+#### Show All RPC/DCERPC Traffic
+```
+dcerpc
+
+rpc
+```
+#### RPC over SMB (Common on Windows)
+
+RPC often runs over SMB named pipes:
+
+```
+smb2 && dcerpc
+
+smb && dcerpc
+```
+
+#### Detect RPC Endpoint Mapper Activity
+```
+tcp.port == 135
+
+dcerpc || tcp.port == 135
+
+```
+
+#### Detect Potential RPC Scanning
+
+Many bind attempts:
+
+```
+dcerpc.cn_bind
+```
+
+Statistics → Conversations → TCP
+
+Look for:
+
+1. One source contacting many hosts
+2. Many bind requests in a short period
+3. Numerous faults
+
+## Hash Calculations:
+```
+    sha256sum file.txt
+
+    md5sum file.txt
+```
+## CRC32 calculations for APK
+
+```
+    crc32 malware.apk
+```
+
+## Windows cmds:
+To view text file
+```
+
+    type note.txt
+```
+
+## validate apk file 
 
 ## Common UDP ports:
 
