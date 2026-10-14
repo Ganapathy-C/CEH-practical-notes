@@ -19,10 +19,16 @@ various types of techniques
 - nmap -sn -PP  10.10.2.11 - ICMP timestamp ping
 - nmap -sn -PO  10.10.2.11 - IP protocol Ping
 - nmap -sn -PM  10.10.2.11 - IP address Mask Ping
+- fping -a -g 192.168.1.0/24 2>/dev/null
 
 tool used
 #### [[Nmap]]
 #tool/linux 
+
+```bash
+fping -a -g 192.168.1.0/24 2>/dev/null
+```
+
 ```bash
 nmap -sn -PR <target-ip>
 ```

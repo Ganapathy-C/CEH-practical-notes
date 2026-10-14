@@ -108,6 +108,15 @@ set type=a
 - nslookup website #tool  - (http://www.kloth.net/services/nslookup.php)
 > only need to type the name of the target domain and query type
 
+
+## Linux
+
+```bash
+    dig www.certifiedhacker.com
+
+    dig www.certifiedhakcer.com ns
+```
+
 ## Network footprinting
 
 accumulating data regarding a specific network environment
@@ -191,10 +200,10 @@ workspaces
 ```
 > manage different workspaces with this command
 ```
-workspace create <workspace-name>
+workspaces create <workspace-name>
 ```
 ```
-workspace list
+workspaces list
 ```
 
 ##### domain/Host discovery
@@ -270,7 +279,7 @@ run
 ##### Recon-ng for Reconnaissance
 
 ```
-workspace create reconnaissance
+workspaces create reconnaissance
 ```
 ```
 modules load recon/domains-contacts/whois_pocs
