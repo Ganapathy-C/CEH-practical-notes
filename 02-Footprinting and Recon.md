@@ -50,6 +50,11 @@ tools used
 sherlock "<target name>"
 ```
 
+#theHarvester - email gathering
+
+```bash
+    theHarvester -d microsoft -l 200 -b linkedin
+```
 #### other tools 
 - Social Searcher (https://www.social-searcher.com)
 

@@ -379,3 +379,8 @@ web applicaiton pentesting tools
 3. wapiti - cli
 4. snipper - cli
 5. skipfish - cli
+
+important links:
+1. GTFObins
+2. https://ceh-practical.cavementech.com/module-2.-footprinting-and-reconnaissance/3.-footprinting-through-social-networking-sites
+
