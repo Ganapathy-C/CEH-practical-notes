@@ -117,6 +117,8 @@ two types of banner grabbing
 1. active banner grabbing
 2. passive banner grabbing
 
+![alt text](image.png)
+
 tool used
 #### [[nmap]] 
 #tool/linux 
