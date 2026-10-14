@@ -56,6 +56,12 @@ scp user@ip:file_with_path destination_dir
 scp user@10.12.23.23:/home/user/id_rsa .
 ```
 
+### Harvester
+
+```bash
+    theHarvester -d microsoft.com -l 50 -b bing
+```
+
 ## SMB Enumeration
 
 ### enum4linux
@@ -373,14 +379,222 @@ A tool used to extract ZIP archives and inspect their contents.
 7z x archive.zip
 ```
 
-web applicaiton pentesting tools
+### web applicaiton pentesting tools
 1. owaspzap
 2. smartscanner - UI - windows
 3. wapiti - cli
 4. snipper - cli
 5. skipfish - cli
 
-important links:
+### important links:
 1. GTFObins
 2. https://ceh-practical.cavementech.com/module-2.-footprinting-and-reconnaissance/3.-footprinting-through-social-networking-sites
+
+### wireshark
+
+Search by request method
+```
+    http.request.method == POST
+
+    http.request.method == "POST"
+
+```
+Search by host name
+```
+    http.host == "example.com"
+
+    http.host contains "www.moviescope.com"
+```
+Search by src and dst ip
+```
+    ip.src == 1.2.3.4
+
+    ip.dst == 1.2.3.4
+```
+Search by request method & hostname or ip
+```
+    http.request.method == "POST" && http.host == "example.com"
+
+    http.request.method == "POST" && ip.dst == 1.2.3.4
+```
+Search by protocol 
+```
+udp
+```
+
+
+#### Characteristics to find flooding or DOS:
+
+Very high packet rate
+Large number of packets from one or many source IPs
+Same destination IP and port repeatedly
+Few or no responses from the destination
+
+
+search by protocol combined with ip
+```
+udp && ip.dst == 192.168.1.10
+```
+Then:
+
+Statistics → Conversations → UDP
+
+Look for:
+
+Top talkers
+Packet counts
+Bytes transferred
+
+A UDP flood usually has one conversation with an abnormally large packet count.
+
+#### Use I/O Graphs to Confirm Flooding
+
+Open:
+
+Statistics → I/O Graphs
+
+```
+udp
+```
+A UDP flood appears as a sharp spike or sustained high packet-per-second rate.
+
+Filter by port
+``` 
+udp.port == 53
+```
+
+#### Fastest Method to find dos or flooding attack
+```
+udp
+```
+Open Statistics → Conversations → UDP.
+
+Sort by Packets.
+
+Note:
+Source IP(s)
+Destination IP
+Destination Port
+Check the Protocol column or well-known port mapping to identify the service.
+
+
+#### find RDP (Remote Desktop Protocol) traffic in Wireshark, use these filters:
+
+##### Filter by Standard RDP Port (3389)
+
+```
+tcp.port == 3389
+```
+
+Or specifically for destination port:
+
+```
+tcp.dstport == 3389
+```
+
+Source port:
+```
+tcp.srcport == 3389
+```
+```
+rdp
+```
+#####  Identify New RDP Sessions
+```
+tcp.port == 3389 && tcp.flags.syn == 1
+```
+
+##### Detect Possible RDP Brute Force Activity
+
+```
+tcp.port == 3389
+```
+Then:
+
+Statistics → Conversations → TCP
+
+Look for:
+
+One source IP
+Hundreds/thousands of connections
+Repeated SYN packets
+
+##### Find All Hosts Offering RDP
+
+Open:
+
+Statistics → Endpoints → TCP
+
+Or filter:
+
+```
+tcp.srcport == 3389
+```
+
+Systems responding from source port 3389 are usually RDP servers.
+
+#### Detect ARP Spoofing (Common Hijacking Technique)
+
+Many session hijacks begin with ARP poisoning.
+
+Filter ARP traffic:
+
+```
+arp
+```
+
+Duplicate IP-MAC mappings:
+
+```
+arp.duplicate-address-detected
+```
+
+Gratuitous ARP:
+
+```
+arp.src.proto_ipv4 == arp.dst.proto_ipv4
+```
+
+Signs:
+
+One IP associated with multiple MAC addresses
+Frequent unsolicited ARP replies
+
+#### Detect Duplicate TCP Sessions (Possible TCP Hijacking)
+
+Look for retransmissions, resets, and out-of-order packets:
+
+```
+tcp.analysis.retransmission
+```
+```
+tcp.analysis.out_of_order
+```
+```
+tcp.flags.reset == 1
+```
+```
+tcp.analysis.duplicate_ack
+```
+
+Signs:
+
+Sudden TCP RST packets
+Duplicate ACK storms
+Sequence number anomalies
+Unexpected source IP sending packets in an existing session
+
+## Common UDP ports:
+
+Port	Service
+53	    DNS
+67/68	DHCP
+69	    TFTP
+123	    NTP
+137	    NetBIOS Name Service
+161	    SNMP
+500	    IKE/IPsec
+514	    Syslog
+1900	SSDP
+4500	IPsec NAT-T
 

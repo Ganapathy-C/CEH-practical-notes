@@ -730,7 +730,13 @@ hydra -L user.txt -P /root/ADtools/rockyou.txt 10.10.1.30 mssql
 
 we try to log into the service
 ```bash
-python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30 -port 1433 
+	python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30 -port 1433
+
+```
+When we have special char like $ doller sign in password
+
+```bash
+python3 /root/impacket/examples/mssqlclient.py "CEH.com/SQL_srv:bat$man@10.10.1.30" -port 1433 
 ```
 
 > note down the name of the database
