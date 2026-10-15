@@ -134,8 +134,8 @@ We are able to find the ESP has been overloaded with the values that we have sen
 	    print("Error: Unable to establish connection with Server")
 	    sys.exit()
 ```
-
 /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 10500 -q 396F4338
+
 
 
 ####	Step4: Confirming the Overwrite:
