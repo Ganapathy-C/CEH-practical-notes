@@ -79,7 +79,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
 #### Step1: Spiking
-		 It is used to test whether the running process is vulnerable or not. Here 
+	It is used to test whether the running process is vulnerable or not. 
 		
 		stats.spk:
 		s_readline();
@@ -90,7 +90,7 @@ We can connect with the running process on the target machine using nc on the ho
 		
 	Step2: Fuzzing:
 		To find the exact bytes where it was breaking
-	```
+	``` bash
 		#!/usr/bin/python3
 		import sys, socket
 		from time import sleep
