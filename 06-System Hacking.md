@@ -78,7 +78,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 
 We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
-#### Step1: Spiking
+#### Stepone: Spiking
 	It is used to test whether the running process is vulnerable or not. 
 		
 		stats.spk:
@@ -88,7 +88,7 @@ We can connect with the running process on the target machine using nc on the ho
 
 		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
 		
-	Step2: Fuzzing:
+#### Step Two: Fuzzing:
 		To find the exact bytes where it was breaking
 	``` bash
 		#!/usr/bin/python3
