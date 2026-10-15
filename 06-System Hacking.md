@@ -74,7 +74,7 @@ next we are using a PowerShell script
 tools used
 #### Immunity Debugger
 ---
-The process needs to be running on the target machine. We need to run the Immunity  debugger as *Admin* on that machine and attach the running process and check it was running on the debugger.
+The process needs to be running on the target machine **Admin**. We need to run the Immunity  debugger as **Admin** on that machine and attach the running process and check it was running on the debugger.
 
 	We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
@@ -83,7 +83,7 @@ The process needs to be running on the target machine. We need to run the Immuni
 		
 		stats.spk:
 		s_readline();
-		s_string(“STATS “);
+		s_string("STATS ");
 		s_string_variable("0");
 
 		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
