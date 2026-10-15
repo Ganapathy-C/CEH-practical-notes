@@ -39,6 +39,8 @@ whois 12.32.23.23
 
 ```bash
 dig 12.32.23.23
+dig 10.10.1.22 ns
+dig @nameserver 10.10.1.22 axfr
 ```
 
 ### SSH
@@ -1123,7 +1125,7 @@ Look for:
 | SNMP                                             |            | 161, 162 |
 | SSH                                              | 22         |          |
 | Telnet                                           | 23         |          |
-| SMTP                                             | 25         |          |
+| SMTP                                             |25,2525,587 |          |
 | POP3                                             | 110        |          |
 | POP3 (encrypted)                                 | 995        |          |
 some common remote login protocols
