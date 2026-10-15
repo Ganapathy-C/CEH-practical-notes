@@ -78,7 +78,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 
 We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
-#### Stepone: Spiking
+#### Step1: Spiking
 It is used to test whether the running process is vulnerable or not. 
 		
 		stats.spk:
@@ -88,7 +88,7 @@ It is used to test whether the running process is vulnerable or not.
 
 		generic_send_tcp 10.10.2.11 44 stats.spk 0 0
 		
-#### Step Two: Fuzzing:
+#### Step2: Fuzzing:
 To find the exact bytes where it was breaking
 	
 	``` 
@@ -156,7 +156,8 @@ We are able to find the ESP has been overloaded with the values that we have sen
 		    sys.exit()
 	```
 	
-	Step 5: Badchars checks
+#### Step 5: Badchars checks
+
 ```
 	#!/usr/bin/python3
 	import sys, socket
@@ -184,7 +185,7 @@ We are able to find the ESP has been overloaded with the values that we have sen
 ```
 ->In Immunity Debugger, click on the ESP register value in the top-right window. Right-click on the selected ESP register value and click the Follow in Dump option.In the left-corner window, you can observe that there are no badchars that cause problems in the shellcode, as shown in the screenshot.
 
-	Step 6: Finding the right module
+#### Step 6: Finding the right module
 	
 		Download mona.py and place it in the Immunity debugger installed folders -> pycommands
 
@@ -192,7 +193,7 @@ We are able to find the ESP has been overloaded with the values that we have sen
 		Find the module with no memory protection from the table with value set as False for all
 
 
-	Step 7: Find  return address of the vulnerable module
+#### Step 7: Find  return address of the vulnerable module
 	
 		JMS ESP  == ffe4
 	
@@ -205,7 +206,7 @@ We are able to find the ESP has been overloaded with the values that we have sen
 		-Now, click on the Run program in the toolbar to run Immunity Debugger.
 
 
-	Step 8: Find If we can able to overwrite the EIP with return address and control the EIP register
+#### Step 8: Find If we can able to overwrite the EIP with return address and control the EIP register
 	```
 		#!/usr/bin/python3
 		import sys, socket
