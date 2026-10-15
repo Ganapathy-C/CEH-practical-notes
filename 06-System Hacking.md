@@ -134,8 +134,9 @@ We are able to find the ESP has been overloaded with the values that we have sen
 	    print("Error: Unable to establish connection with Server")
 	    sys.exit()
 ```
-	
+
 /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 10500 -q 396F4338
+
 
 ####	Step4: Confirming the Overwrite:
 
@@ -155,8 +156,10 @@ We are able to find the ESP has been overloaded with the values that we have sen
 		    print("Error: Unable to establish connection with Server")
 		    sys.exit()
 	```
-	
+
+
 #### Step 5: Badchars checks
+
 
 ```
 	#!/usr/bin/python3
@@ -183,7 +186,9 @@ We are able to find the ESP has been overloaded with the values that we have sen
 	    print("Error: Unable to establish connection with Server")
 	    sys.exit()
 ```
-->In Immunity Debugger, click on the ESP register value in the top-right window. Right-click on the selected ESP register value and click the Follow in Dump option.In the left-corner window, you can observe that there are no badchars that cause problems in the shellcode, as shown in the screenshot.
+
+In Immunity Debugger, click on the ESP register value in the top-right window. Right-click on the selected ESP register value and click the Follow in Dump option.In the left-corner window, you can observe that there are no badchars that cause problems in the shellcode, as shown in the screenshot.
+
 
 #### Step 6: Finding the right module
 	
