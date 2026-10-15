@@ -76,7 +76,7 @@ tools used
 ---
 The process needs to be running on the target machine **Admin**. We need to run the Immunity  debugger as **Admin** on that machine and attach the running process and check it was running on the debugger.
 
-	We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
+We can connect with the running process on the target machine using nc on the host machine. Get the commands allowed to be executed on the running process.
 
 	Step1: Spiking
 		 It is used to test whether the running process is vulnerable or not. Here 
