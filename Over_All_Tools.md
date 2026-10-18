@@ -1081,6 +1081,13 @@ Look for:
 2. Many bind requests in a short period
 3. Numerous faults
 
+#### MAC flooding detection:
+
+```
+    eth 
+
+    eth.add == ip
+```
 
 ## Privilege-Escalation Tools
 
