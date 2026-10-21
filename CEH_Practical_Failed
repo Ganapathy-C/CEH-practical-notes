@@ -1,44 +1,44 @@
 
-### 2\. SMTP and Subject Alternative Name (SAN)
+### 2. SMTP and Subject Alternative Name (SAN)
 
-* subjective alternative name of the host
+subjective alternative name of the host
 
-* of host running smtp
+of host running smtp
 
-* HOW TO CONNECT WITH SMTP
+HOW TO CONNECT WITH SMTP
 
-* help cmd
+help cmd
 
-* how to get Subject alternative name
+how to get Subject alternative name
 
-### 3\. Windows executable headers, LoaderFlags, PEiD and DIE
+### 3. Windows executable headers, LoaderFlags, PEiD and DIE
 
-* Loader Flag field in executable header
+Loader Flag field in executable header
 
-* widows tool
+widows tool
 
-* any other tool to do it
+any other tool to do it
 
-* i can able to find name, offset, type, value of the LoaderFlags in DIE, but where it the description
+i can able to find name, offset, type, value of the LoaderFlags in DIE, but where it the description
 
-* usng PEID tool
+usng PEID tool
 
-* how to find the description of these LoaderFlags
+how to find the description of these LoaderFlags
 
-### 4\. Active Directory and PowerView
+### 4. Active Directory and PowerView
 
-* writeDCL autorithy in powerview
+writeDCL autorithy in powerview
 
-* You shared this PowerView error while running `Get-NetUser`:
+You shared this PowerView error while running `Get-NetUser`:
 
 ```text
 Exception calling "FindAll" with "0" argument(s):
 "Unknown error (0x80005000)"
 ```
 
-15\. how to find writeDacl active directory rights using powerview for the user
+15. how to find writeDacl active directory rights using powerview for the user
 
-### 5\. Wireshark, BSSID and Wi-Fi security
+### 5. Wireshark, BSSID and Wi-Fi security
 
 * how to find bssid from .pcap using wireshark or any other method
 
@@ -46,7 +46,7 @@ Exception calling "FindAll" with "0" argument(s):
 
 * using wireshark
 
-### 6\. CVE research and Docker image analysis using Trivy
+### 6. CVE research and Docker image analysis using Trivy
 
 * CVE-2019-13012
 
@@ -64,13 +64,13 @@ You then clarified:
 
 > libglib2.0-0:amd64 2.74.6-2 — i need to find the docker image size
 
-### 7\. SMB file downloads on Linux
+### 7. SMB file downloads on Linux
 
-25\. how to download png file in smb inlinux
+25. how to download png file in smb inlinux
 
-### 8\. Linux file searching
+### 8. Linux file searching
 
-26\. how to search a file in linux without using find
+26. how to search a file in linux without using find
 
 ### Summary of topics covered
 
