@@ -641,8 +641,8 @@ sha256sum <file>
 
 ### Inspect a PEM certificate
 
-Display the subject, issuer, and validity dates of a certificate.
-
+                                                                                                                                                                                                ''Display the subject, issuer, and validity dates of a certificate.
+''
 ```bash
 openssl x509 -in <certificate.pem> -noout -subject -issuer -dates
 ```
